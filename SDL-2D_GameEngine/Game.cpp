@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Actor.h"
 
 Game::Game():
     mWindow(nullptr),
@@ -45,6 +46,11 @@ void Game::RunLoop()
 
 void Game::Shutdown()
 {
+    while (!mActors.empty()) {
+        delete mActors.back();
+    }
+
+
     SDL_DestroyWindow(mWindow);
     SDL_DestroyRenderer(mRenderer);
     SDL_Quit();
@@ -88,6 +94,35 @@ void Game::UpdateGame()
         deltaTime = 0.05f;
     }
 
+    // Updating all actors
+    mUpdatingActors = true;
+
+    for (auto actor : mActors) {
+        actor->Update(deltaTime);
+    }
+    mUpdatingActors = false;
+
+    // Move pending actors to mActors
+    for (auto pending : mPendingActors) {
+        mActors.emplace_back(pending);
+    }
+    mPendingActors.clear();
+
+    // Add any dead actor to a temp vector
+    std::vector<Actor*> deadActors;
+    for (auto actor : mActors) {
+        if (actor->GetState() == Actor::EDead)
+        {
+            deadActors.emplace_back(actor);
+        }
+    }
+
+    for (auto actor : deadActors) {
+        delete actor;
+    }
+
+
+
 }
 
 void Game::GenerateOutput()
@@ -109,4 +144,24 @@ void Game::GenerateOutput()
 
     // Swap front buffer and back buffer
     SDL_RenderPresent(mRenderer);
+}
+
+void Game::AddActor(Actor* actor)
+{
+    if (mUpdatingActors) {
+        mPendingActors.emplace_back(actor);
+    }
+    else {
+        mActors.emplace_back(actor);
+    }
+}
+
+void Game::RemoveActor(Actor* actor)
+{
+    if (mUpdatingActors) {
+        mPendingActors.erase(std::remove( mPendingActors.begin(), mPendingActors.end(), actor));
+    }
+    else {
+        mActors.erase(std::remove(mActors.begin(), mActors.end(), actor));
+    }
 }

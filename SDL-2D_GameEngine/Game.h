@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SDL2/SDL.h"
+#include <vector>
 
 class Game
 {
@@ -26,6 +27,17 @@ private:
 
 	// for delta time
 	Uint32 mTicksCount;
+
+private:
+	std::vector<class Actor*> mActors;
+	std::vector<class Actor*> mPendingActors;
+	
+	bool mUpdatingActors;
+
+public:
+	void AddActor(Actor* actor);
+	void RemoveActor(Actor* actor);
+
 
 };
 
