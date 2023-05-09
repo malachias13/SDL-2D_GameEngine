@@ -25,20 +25,21 @@ public:
 	virtual void UpdateActor(float deltaTime);
 
 	// Getters/Setters
-	State GetState() { return state; }
-	FVector2D GetPosition() { return mPosition; }
+	State GetState() { return mState; }
+	Vector2 GetPosition() { return mPosition; }
 	float GetScale() { return mScale; }
 	float GetRotation() { return mRotation; }
+	Game* GetGame() { return mGame; }
 
 	// Add/remove components
 	void AddComponent(class Component* component);
 	void RemoveComponent(class Component* component);
 
 private:
-	State state;
+	State mState;
 
 	// Transform
-	FVector2D mPosition;
+	Vector2 mPosition;
 	float mScale;
 	float mRotation; // Radians
 

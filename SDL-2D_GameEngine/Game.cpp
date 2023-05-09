@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Actor.h"
+#include "SpriteComponent.h"
 
 Game::Game():
     mWindow(nullptr),
@@ -9,15 +10,25 @@ Game::Game():
 
 bool Game::Initialize()
 {
-    flag = SDL_WINDOW_RESIZABLE;
+    flags = IMG_INIT_JPG | IMG_INIT_PNG;
     int sdlResult = SDL_Init(SDL_INIT_VIDEO);
     if (sdlResult != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
         return false;
     }
+    
+    // init image
+    int initted = IMG_Init(flags);
+    if ((initted & flags) != flags) {
+        printf("IMG_Init: Failed to init required jpg and png support!\n");
+        printf("IMG_Init: %s\n", IMG_GetError());
+        // handle error
+    }
+
     // Creating the window
+    flags += SDL_WINDOW_FULLSCREEN_DESKTOP;
     mWindow = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        1024, 768, flag);
+        1024, 768, flags);
     if (!mWindow) {
         SDL_Log("Failed to create window: %s", SDL_GetError());
         return false;
@@ -76,7 +87,7 @@ void Game::ProcessInput()
         mIsRunning = false;
     }
     if (state[SDL_SCANCODE_F11]) {
-        flag += SDL_WINDOW_FULLSCREEN;
+        flags += SDL_WINDOW_FULLSCREEN;
     }
 }
 
@@ -164,4 +175,24 @@ void Game::RemoveActor(Actor* actor)
     else {
         mActors.erase(std::remove(mActors.begin(), mActors.end(), actor));
     }
+}
+
+void Game::AddSprite(SpriteComponent* sprite)
+{
+    // Find the insertion point in the sorted vector
+    // (The first element with a highter draw order than me)
+    int myDrawOrder = sprite->GetDrawOrder();
+    auto iter = mSprites.begin();
+    for (; iter != mSprites.end(); ++iter) {
+        if (myDrawOrder < (*iter)->GetDrawOrder()) {
+            break;
+        }
+    }
+    mSprites.insert(iter, sprite);
+}
+
+void Game::RemoveSprite(SpriteComponent* sprite)
+{
+    auto iter = std::find(mSprites.begin(), mSprites.end(), sprite);
+    mSprites.erase(iter);
 }
