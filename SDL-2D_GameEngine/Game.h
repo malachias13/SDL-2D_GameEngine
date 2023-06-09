@@ -13,14 +13,15 @@ public:
 	void RunLoop();
 	void Shutdown();
 	SDL_Texture* GetTexture(const std::string& fileName);
-private:
+protected:
 	// Helper functions
-	void ProcessInput();
-	void UpdateGame();
-	void GenerateOutput();
-	void LoadData();
-	void UnloadData();
+	virtual void ProcessInput();
+	virtual void UpdateGame();
+	virtual void GenerateOutput();
+	virtual void LoadData();
+	virtual void UnloadData();
 
+private:
 	// Window create by SDL
 	SDL_Window* mWindow;
 	// renderer
@@ -47,6 +48,8 @@ private:
 
 	// Game-specific
 	class Ship* mShip; // Player's ship
+
+
 
 public:
 	void AddActor(Actor* actor);
