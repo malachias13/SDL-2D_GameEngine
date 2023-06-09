@@ -1,10 +1,14 @@
 #include "Game.h"
 #include "Actor.h"
 #include "SpriteComponent.h"
+#include "Ship.h"
+#include "BGSpriteComponent.h"
 
 Game::Game():
     mWindow(nullptr),
-    mIsRunning(true)
+    mIsRunning(true),
+    mRenderer(nullptr),
+    mUpdatingActors(false)
 {
 }
 
@@ -26,7 +30,7 @@ bool Game::Initialize()
     }
 
     // Creating the window
-    flags += SDL_WINDOW_FULLSCREEN_DESKTOP;
+    flags += SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_RESIZABLE;
     mWindow = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         1024, 768, flags);
     if (!mWindow) {
@@ -41,6 +45,9 @@ bool Game::Initialize()
         SDL_Log("Failed to create renderer: %s", SDL_GetError());
         return false;
     }
+
+    LoadData();
+    mTicksCount = SDL_GetTicks();
 
     return true;
 }
@@ -57,14 +64,39 @@ void Game::RunLoop()
 
 void Game::Shutdown()
 {
-    while (!mActors.empty()) {
-        delete mActors.back();
-    }
-
-
+    UnloadData();
+    IMG_Quit();
     SDL_DestroyWindow(mWindow);
     SDL_DestroyRenderer(mRenderer);
     SDL_Quit();
+}
+
+SDL_Texture* Game::GetTexture(const std::string& fileName)
+{
+    SDL_Texture* tex = nullptr;
+    // Is the texture already in map?
+    auto iter = mTextures.find(fileName);
+    if (iter != mTextures.end()) {
+        tex = iter->second;
+    }
+    else {
+        // Load from file
+        SDL_Surface* surf = IMG_Load(fileName.c_str());
+        if (!surf) {
+            SDL_Log("Failed to load texture file %s", fileName.c_str());
+            return nullptr;
+        }
+
+        // Create texture from surface
+        tex = SDL_CreateTextureFromSurface(mRenderer, surf);
+        SDL_FreeSurface(surf);
+        if (!tex) {
+            SDL_Log("Failed to convert surface to texture for %s", fileName.c_str());
+        }
+        mTextures.emplace(fileName.c_str(), tex);
+    }
+
+    return tex;
 }
 
 void Game::ProcessInput()
@@ -89,6 +121,12 @@ void Game::ProcessInput()
     if (state[SDL_SCANCODE_F11]) {
         flags += SDL_WINDOW_FULLSCREEN;
     }
+
+#if 0
+    // Process ship input
+    mShip->ProcessKeyboard(state);
+#endif // 0
+
 }
 
 void Game::UpdateGame()
@@ -149,12 +187,62 @@ void Game::GenerateOutput()
     // Setting the render color to white so things can be seen.
     SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
-
-
-
+    // Draw all sprite components
+    for (auto sprite : mSprites)
+    {
+        sprite->Draw(mRenderer);
+    }
 
     // Swap front buffer and back buffer
     SDL_RenderPresent(mRenderer);
+}
+
+void Game::LoadData()
+{
+#if 0
+    // Create player's ship
+    mShip = new Ship(this);
+    mShip->SetPosition(Vector2(100.0f, 384.0f));
+    mShip->SetScale(1.5f);
+    // Create actor for the background (this doesn't need a subclass)
+    Actor* temp = new Actor(this);
+    temp->SetPosition(Vector2(512.0f, 384.0f));
+    // Create the "far back" background
+    BGSpriteComponent* bg = new BGSpriteComponent(temp);
+    bg->SetScreenSize(Vector2(1020.0f, 768.0f));
+    std::vector<SDL_Texture*> bgtexs = {
+        GetTexture("Assets/Farback01.png"),
+        GetTexture("Assets/Farback02.png")
+    };
+    bg->SetBGTextures(bgtexs);
+    bg->SetScrollSpeed(-100.0f);
+    // Create the closer background
+    bg = new BGSpriteComponent(temp, 50);
+    bg->SetScreenSize(Vector2(1024.0f, 768.0f));
+    bgtexs = {
+        GetTexture("Assets/Stars.png"),
+        GetTexture("Assets/Stars.png")
+    };
+    bg->SetBGTextures(bgtexs);
+    bg->SetScrollSpeed(-200.0f);
+
+#endif
+
+
+}
+
+void Game::UnloadData()
+{
+    // Delete actors
+    while (!mActors.empty()) {
+        delete mActors.back();
+    }
+
+    // Destroy textures
+    for (auto i : mTextures) {
+        SDL_DestroyTexture(i.second);
+    }
+    mTextures.clear();
 }
 
 void Game::AddActor(Actor* actor)

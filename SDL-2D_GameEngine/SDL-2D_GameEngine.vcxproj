@@ -21,20 +21,26 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AnimSpriteComponent.cpp" />
+    <ClCompile Include="BGSpriteComponent.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AnimSpriteComponent.h" />
+    <ClInclude Include="BGSpriteComponent.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMath.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Ship.h" />
     <ClInclude Include="SpriteComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

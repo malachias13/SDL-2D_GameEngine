@@ -6,6 +6,7 @@
 
 class AnimSpriteComponent : public SpriteComponent
 {
+public:
 	AnimSpriteComponent(class Actor* owner, int drawOrder = 100);
 	// Update animation every frame (overriden from component)
 

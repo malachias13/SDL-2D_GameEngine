@@ -31,6 +31,10 @@ public:
 	float GetRotation() { return mRotation; }
 	Game* GetGame() { return mGame; }
 
+	void SetPosition(const Vector2& pos) { mPosition = pos; }
+	void SetScale(float scale) { mScale = scale; }
+	void SetRotation(float rotation) { mRotation = rotation; }
+
 	// Add/remove components
 	void AddComponent(class Component* component);
 	void RemoveComponent(class Component* component);

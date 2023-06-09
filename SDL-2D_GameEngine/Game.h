@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include <vector>
+#include <unordered_map>
 
 class Game
 {
@@ -11,11 +12,14 @@ public:
 	bool Initialize();
 	void RunLoop();
 	void Shutdown();
+	SDL_Texture* GetTexture(const std::string& fileName);
 private:
 	// Helper functions
 	void ProcessInput();
 	void UpdateGame();
 	void GenerateOutput();
+	void LoadData();
+	void UnloadData();
 
 	// Window create by SDL
 	SDL_Window* mWindow;
@@ -30,6 +34,9 @@ private:
 	Uint32 mTicksCount;
 
 private:
+
+	// Map of textures loaded
+	std::unordered_map<std::string, SDL_Texture*> mTextures;
 	std::vector<class Actor*> mActors;
 	std::vector<class Actor*> mPendingActors;
 	// All the sprite components drawn
@@ -37,11 +44,16 @@ private:
 	
 	bool mUpdatingActors;
 
+
+	// Game-specific
+	class Ship* mShip; // Player's ship
+
 public:
 	void AddActor(Actor* actor);
 	void RemoveActor(Actor* actor);
 
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
+
 };
 
