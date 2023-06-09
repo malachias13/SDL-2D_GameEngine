@@ -58,5 +58,9 @@ public:
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
 
+public:
+	// Getters
+	SDL_Renderer* GetRenderer() { return mRenderer; }
+
 };
 
