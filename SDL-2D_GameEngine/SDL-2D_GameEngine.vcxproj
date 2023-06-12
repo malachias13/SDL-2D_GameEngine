@@ -26,6 +26,7 @@
     <ClCompile Include="CardGame.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="CardGame.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Deck.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMath.h" />
     <ClInclude Include="GameObject.h" />
