@@ -24,6 +24,7 @@ protected:
 
 private:
 	void FillDeck(Deck* deck);
+	void DisplayDeck(Deck* deck, int x = 0, int y = 0);
 
 };
 

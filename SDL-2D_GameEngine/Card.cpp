@@ -27,6 +27,8 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 		CardImage->SetTexture(img);
 	}
 
+	SetScale(0.2f);
+
 }
 
 const char* Card::RankToString()

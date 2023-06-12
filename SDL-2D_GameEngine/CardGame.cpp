@@ -241,6 +241,7 @@ void CardGame::LoadData()
 	card->SetScale(0.2f);*/
 	mPlayer1 = new Player(52, this);
 	FillDeck(mPlayer1->GetDeck());
+	DisplayDeck(mPlayer1->GetDeck(), 100, 100);
 }
 
 void CardGame::FillDeck(Deck* deck)
@@ -253,3 +254,15 @@ void CardGame::FillDeck(Deck* deck)
 		}
 	}
 }
+
+void CardGame::DisplayDeck(Deck* deck, int x, int y)
+{
+	for (int i = 0; i < deck->GetPlayingCards().size(); ++i) {
+		int xPos = x + ((i % 13) * 120);
+		int yPos = y +((i / 13) * 150);
+		deck->GetPlayingCards()[i]->SetPosition(Vector2(xPos, yPos));
+	}
+
+}
+
+
