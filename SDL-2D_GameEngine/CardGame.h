@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "Card.h"
 
+class Deck;
+class Player;
 
 class CardGame : public Game
 {
@@ -12,10 +14,16 @@ private:
 public:
 
 	std::string GetCardImagPath(const Ranks rank, const Suits suit);
+
+private:
+	Player* mPlayer1;
 	
 protected:
 
 	virtual void LoadData() override;
+
+private:
+	void FillDeck(Deck* deck);
 
 };
 

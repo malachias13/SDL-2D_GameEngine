@@ -1,5 +1,7 @@
 #include "CardGame.h"
-
+#include "Deck.h"
+#include "Player.h"
+#include <iostream>
 
 std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 {
@@ -234,7 +236,20 @@ std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 void CardGame::LoadData()
 {
 	
-	card = new Card(Ranks::HEART, Suits::QUEEN, this);
+	/*card = new Card(Ranks::HEART, Suits::QUEEN, this);
 	card->SetPosition(Vector2(100, 100));
-	card->SetScale(0.2f);
+	card->SetScale(0.2f);*/
+	mPlayer1 = new Player(52, this);
+	FillDeck(mPlayer1->GetDeck());
+}
+
+void CardGame::FillDeck(Deck* deck)
+{
+	for (int r = 0; r < 4; r++) {
+		for (int s = 1; s < 14; s++) {
+
+			Card* newCard = new Card((Ranks)r, (Suits)s, this);
+			deck->AddCard(newCard);
+		}
+	}
 }
