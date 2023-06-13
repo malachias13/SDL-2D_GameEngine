@@ -45,12 +45,6 @@ private:
 	
 	bool mUpdatingActors;
 
-
-	// Game-specific
-	class Ship* mShip; // Player's ship
-
-
-
 public:
 	void AddActor(Actor* actor);
 	void RemoveActor(Actor* actor);

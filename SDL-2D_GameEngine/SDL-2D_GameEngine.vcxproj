@@ -24,15 +24,12 @@
     <ClCompile Include="BGSpriteComponent.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardGame.cpp" />
-    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMath.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -41,14 +38,11 @@
     <ClInclude Include="BGSpriteComponent.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardGame.h" />
-    <ClInclude Include="Character.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMath.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Ship.h" />
     <ClInclude Include="SpriteComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

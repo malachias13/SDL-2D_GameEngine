@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "Actor.h"
 #include "SpriteComponent.h"
-#include "Ship.h"
 #include "BGSpriteComponent.h"
 
 Game::Game():
@@ -31,7 +30,7 @@ bool Game::Initialize()
 
     // Creating the window
     flags += SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_RESIZABLE;
-    mWindow = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    mWindow = SDL_CreateWindow("Harris 2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         1024, 768, flags);
     if (!mWindow) {
         SDL_Log("Failed to create window: %s", SDL_GetError());
@@ -122,11 +121,6 @@ void Game::ProcessInput()
         flags += SDL_WINDOW_FULLSCREEN;
     }
 
-#if 0
-    // Process ship input
-    mShip->ProcessKeyboard(state);
-#endif // 0
-
 }
 
 void Game::UpdateGame()
@@ -199,37 +193,6 @@ void Game::GenerateOutput()
 
 void Game::LoadData()
 {
-#if 0
-    // Create player's ship
-    mShip = new Ship(this);
-    mShip->SetPosition(Vector2(100.0f, 384.0f));
-    mShip->SetScale(1.5f);
-    // Create actor for the background (this doesn't need a subclass)
-    Actor* temp = new Actor(this);
-    temp->SetPosition(Vector2(512.0f, 384.0f));
-    // Create the "far back" background
-    BGSpriteComponent* bg = new BGSpriteComponent(temp);
-    bg->SetScreenSize(Vector2(1020.0f, 768.0f));
-    std::vector<SDL_Texture*> bgtexs = {
-        GetTexture("Assets/Farback01.png"),
-        GetTexture("Assets/Farback02.png")
-    };
-    bg->SetBGTextures(bgtexs);
-    bg->SetScrollSpeed(-100.0f);
-    // Create the closer background
-    bg = new BGSpriteComponent(temp, 50);
-    bg->SetScreenSize(Vector2(1024.0f, 768.0f));
-    bgtexs = {
-        GetTexture("Assets/Stars.png"),
-        GetTexture("Assets/Stars.png")
-    };
-    bg->SetBGTextures(bgtexs);
-    bg->SetScrollSpeed(-200.0f);
-
-#endif
-
-
-
 
 }
 
