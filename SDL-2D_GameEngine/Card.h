@@ -36,6 +36,8 @@ private:
 	Ranks mRank;
 	Suits mSuit;
 
+	class BoxCollsion2DComponent* boxCollsion;
+
 public:
 	const char* RankToString();
 	const char* SuitsToString();

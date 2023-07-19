@@ -1,5 +1,6 @@
 #include "Card.h"
 #include "SpriteComponent.h"
+#include "BoxCollsion2DComponent.h"
 #include "CardGame.h"
 
 Card::Card(class Game* game):Actor(game)
@@ -19,7 +20,9 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 	mSuit(suit),
 	mRank(rank)
 {
-	SpriteComponent* CardImage = new SpriteComponent(this);
+	SpriteComponent* CardImage = new SpriteComponent(this, 4);
+	boxCollsion = new BoxCollsion2DComponent(this, Vector2(500, 720));
+	boxCollsion->bHiddenInGame = false;
 	CardGame* cardGame = static_cast<CardGame*>(game);
 
 	if (cardGame) {

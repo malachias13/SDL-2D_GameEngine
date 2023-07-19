@@ -108,7 +108,13 @@ void Game::ProcessInput()
         case SDL_QUIT:
             mIsRunning = false;
             break;
+
+            // Clicking
+        case SDL_MOUSEBUTTONUP:
+            SDL_Log("Clicked");
+            break;
         }
+
     }
 
     // Get state of keyboard.
