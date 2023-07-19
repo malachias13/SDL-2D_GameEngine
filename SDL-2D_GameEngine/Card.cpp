@@ -2,6 +2,7 @@
 #include "SpriteComponent.h"
 #include "BoxCollsion2DComponent.h"
 #include "CardGame.h"
+#include <functional>
 
 Card::Card(class Game* game):Actor(game)
 {
@@ -23,6 +24,10 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 	SpriteComponent* CardImage = new SpriteComponent(this, 4);
 	boxCollsion = new BoxCollsion2DComponent(this, Vector2(500, 720));
 	boxCollsion->bHiddenInGame = false;
+	boxCollsion->onClicked = std::bind(&Card::Click, this);
+
+	
+
 	CardGame* cardGame = static_cast<CardGame*>(game);
 
 	if (cardGame) {
@@ -32,6 +37,11 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 
 	SetScale(0.2f);
 
+}
+
+void Card::Click()
+{
+	SDL_Log("Clicked card");
 }
 
 const char* Card::RankToString()

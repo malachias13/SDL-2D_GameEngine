@@ -30,6 +30,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
   </ItemGroup>
@@ -44,6 +45,7 @@
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMath.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpriteComponent.h" />
   </ItemGroup>

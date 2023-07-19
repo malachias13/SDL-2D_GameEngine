@@ -4,6 +4,7 @@
 #include "SDL2/SDL_image.h"
 #include <vector>
 #include <unordered_map>
+#include "Mouse.h"
 
 class Game
 {
@@ -21,13 +22,16 @@ protected:
 	virtual void LoadData();
 	virtual void UnloadData();
 
+protected:
+	// Game should continue to run
+	bool mIsRunning;
+	Mouse* mCursor;
+
 private:
 	// Window create by SDL
 	SDL_Window* mWindow;
 	// renderer
 	SDL_Renderer* mRenderer;
-	// Game should continue to run
-	bool mIsRunning;
 
 	int flags = 0;
 

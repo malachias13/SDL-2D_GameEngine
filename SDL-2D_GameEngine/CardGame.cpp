@@ -2,6 +2,7 @@
 #include "Deck.h"
 #include "Player.h"
 #include <iostream>
+#include "BoxCollsion2DComponent.h"
 
 std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 {
@@ -236,12 +237,37 @@ std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 void CardGame::LoadData()
 {
 	
-	/*card = new Card(Ranks::HEART, Suits::QUEEN, this);
+	card = new Card(Ranks::HEART, Suits::QUEEN, this);
 	card->SetPosition(Vector2(100, 100));
-	card->SetScale(0.2f);*/
+	card->SetScale(0.2f);
+	mCursor = new Mouse(this);
 	mPlayer1 = new Player(52, this);
-	FillDeck(mPlayer1->GetDeck());
-	DisplayDeck(mPlayer1->GetDeck(), 100, 100);
+	//FillDeck(mPlayer1->GetDeck());
+	//DisplayDeck(mPlayer1->GetDeck(), 100, 100);
+
+	SDL_ShowCursor(false);
+}
+
+void CardGame::ProcessInput()
+{
+	SDL_Event event;
+	// While there are still events in the queue
+	while (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			mIsRunning = false;
+			break;
+			// click
+		case SDL_MOUSEBUTTONUP:
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			SDL_Log("Clicked %i , %i", x, y);
+			
+			card->boxCollsion->hasClicked(mCursor);
+			break;
+		}
+	}
 }
 
 void CardGame::FillDeck(Deck* deck)
@@ -260,7 +286,10 @@ void CardGame::DisplayDeck(Deck* deck, int x, int y)
 	for (int i = 0; i < deck->GetPlayingCards().size(); ++i) {
 		int xPos = x + ((i % 13) * 120);
 		int yPos = y +((i / 13) * 150);
-		deck->GetPlayingCards()[i]->SetPosition(Vector2(xPos, yPos));
+		deck->GetPlayingCards()[i]->SetPosition(Vector2((float)xPos, (float)yPos));
+		
+		// Remove this code this is just for testing!
+		//deck->GetPlayingCards()[i]->boxCollsion->onClicked(this);
 	}
 
 }

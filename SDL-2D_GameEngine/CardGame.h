@@ -21,6 +21,7 @@ private:
 protected:
 
 	virtual void LoadData() override;
+	virtual void ProcessInput() override;
 
 private:
 	void FillDeck(Deck* deck);

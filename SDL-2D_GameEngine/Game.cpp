@@ -108,13 +108,7 @@ void Game::ProcessInput()
         case SDL_QUIT:
             mIsRunning = false;
             break;
-
-            // Clicking
-        case SDL_MOUSEBUTTONUP:
-            SDL_Log("Clicked");
-            break;
         }
-
     }
 
     // Get state of keyboard.
@@ -142,6 +136,11 @@ void Game::UpdateGame()
     {
         deltaTime = 0.05f;
     }
+
+    // Update cursor
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    mCursor->SetPosition(Vector2(x,y));
 
     // Updating all actors
     mUpdatingActors = true;
@@ -199,7 +198,6 @@ void Game::GenerateOutput()
 
 void Game::LoadData()
 {
-
 }
 
 void Game::UnloadData()

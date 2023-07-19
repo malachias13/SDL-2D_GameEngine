@@ -20,7 +20,7 @@ SpriteComponent::~SpriteComponent()
 void SpriteComponent::Draw(SDL_Renderer* renderer)
 {
 	if (mTexture) {
-		SDL_Rect r;
+		//SDL_Rect r;
 		// Scale the width and height by owner's scale
 		r.w = static_cast<int>(mTexWidth * mOwner->GetScale());
 		r.h = static_cast<int>(mTexHeight * mOwner->GetScale());

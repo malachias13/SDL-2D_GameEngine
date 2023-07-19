@@ -23,5 +23,7 @@ protected:
 	int mTexWidth;
 	int mTexHeight;
 
+public:
+	SDL_Rect r;
 };
 
