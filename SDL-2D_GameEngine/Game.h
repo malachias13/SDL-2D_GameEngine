@@ -4,6 +4,7 @@
 #include "SDL2/SDL_image.h"
 #include <vector>
 #include <unordered_map>
+#include <string>
 #include "Mouse.h"
 
 class Game
