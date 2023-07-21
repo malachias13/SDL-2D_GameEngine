@@ -14,13 +14,15 @@ public:
 private:
 	SDL_Rect m_collsionBox;
 
+	void Clicked();
+
 public:
 	Vector2 size;
 	bool bHiddenInGame = false;
 
 public:
 	// Click function pointer;
-	std::function<void(Actor)> onClicked;
+	std::function<void(Actor*)> onClicked;
 
 	bool hasClicked(class Mouse* cusor);
 

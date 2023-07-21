@@ -41,7 +41,12 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 
 void Card::Click()
 {
-	SDL_Log("Clicked card");
+	std::string rank = RankToString();
+	std::string suit = SuitsToString();
+
+	SDL_Log("Clicked card class %s of %s", suit.c_str(), rank.c_str());
+
+
 }
 
 const char* Card::RankToString()

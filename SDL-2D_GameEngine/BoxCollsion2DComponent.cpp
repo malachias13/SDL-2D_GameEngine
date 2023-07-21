@@ -7,6 +7,7 @@ BoxCollsion2DComponent::BoxCollsion2DComponent(Actor* owner, Vector2 boxSize):
 {
 	size = boxSize;
 	bHiddenInGame = true;
+	onClicked = std::bind(&BoxCollsion2DComponent::Clicked, this);
 }
 
 void BoxCollsion2DComponent::Draw(SDL_Renderer* renderer)
@@ -23,10 +24,14 @@ void BoxCollsion2DComponent::Draw(SDL_Renderer* renderer)
 	SDL_RenderDrawRect(renderer, &m_collsionBox);
 }
 
+void BoxCollsion2DComponent::Clicked()
+{
+}
+
 bool BoxCollsion2DComponent::hasClicked(Mouse* cusor)
 {
 	if (SDL_HasIntersection(&(cusor->cursor->r), &m_collsionBox)) {
-		SDL_Log("Card Click!!!!!");
+		onClicked(mOwner);
 		return true;
 	}
 

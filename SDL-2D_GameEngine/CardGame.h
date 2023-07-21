@@ -26,6 +26,8 @@ protected:
 private:
 	void FillDeck(Deck* deck);
 	void DisplayDeck(Deck* deck, int x = 0, int y = 0);
+	// Call hasClicked delegate on all clickable objects.
+	void NotifyClicked(class Mouse* Cursor);
 
 };
 

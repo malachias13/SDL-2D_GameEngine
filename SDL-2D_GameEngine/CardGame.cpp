@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <iostream>
 #include "BoxCollsion2DComponent.h"
+#include "SpriteComponent.h"
 
 std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 {
@@ -237,13 +238,14 @@ std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 void CardGame::LoadData()
 {
 	
-	card = new Card(Ranks::HEART, Suits::QUEEN, this);
-	card->SetPosition(Vector2(100, 100));
-	card->SetScale(0.2f);
+	//card = new Card(Ranks::HEART, Suits::QUEEN, this);
+	//card->SetPosition(Vector2(100, 100));
+	//card->SetScale(0.2f);
+
 	mCursor = new Mouse(this);
 	mPlayer1 = new Player(52, this);
-	//FillDeck(mPlayer1->GetDeck());
-	//DisplayDeck(mPlayer1->GetDeck(), 100, 100);
+	FillDeck(mPlayer1->GetDeck());
+	DisplayDeck(mPlayer1->GetDeck(), 100, 100);
 
 	SDL_ShowCursor(false);
 }
@@ -260,11 +262,14 @@ void CardGame::ProcessInput()
 			break;
 			// click
 		case SDL_MOUSEBUTTONUP:
-			int x, y;
-			SDL_GetMouseState(&x, &y);
-			SDL_Log("Clicked %i , %i", x, y);
-			
-			card->boxCollsion->hasClicked(mCursor);
+
+			if (SDL_BUTTON_LEFT == event.button.button) {
+				int x, y;
+				SDL_GetMouseState(&x, &y);
+				SDL_Log("Clicked %i , %i", x, y);
+
+				NotifyClicked(mCursor);
+			}
 			break;
 		}
 	}
@@ -292,6 +297,17 @@ void CardGame::DisplayDeck(Deck* deck, int x, int y)
 		//deck->GetPlayingCards()[i]->boxCollsion->onClicked(this);
 	}
 
+}
+
+void CardGame::NotifyClicked(Mouse* Cursor)
+{
+	for (int i = 0; i < GetAllSpritesComp().size(); i++) {
+		// 2D boxCollsions component are the only class that handles clicks
+		BoxCollsion2DComponent* Box2DComponent = reinterpret_cast<BoxCollsion2DComponent*>(GetAllSpritesComp()[i]);
+		if (Box2DComponent) {
+			Box2DComponent->hasClicked(Cursor);
+		}
+	}
 }
 
 

@@ -60,6 +60,8 @@ public:
 public:
 	// Getters
 	SDL_Renderer* GetRenderer() { return mRenderer; }
+	std::vector<class Actor*> GetAllActors() const { return mActors; }
+	std::vector<class SpriteComponent*> GetAllSpritesComp() const { return mSprites; }
 
 };
 
