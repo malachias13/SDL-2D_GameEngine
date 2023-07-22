@@ -270,6 +270,10 @@ void CardGame::ProcessInput()
 
 				NotifyClicked(mCursor);
 			}
+		case SDL_KEYDOWN:
+
+			if (SDLK_q == event.key.keysym.sym) {
+			}
 			break;
 		}
 	}

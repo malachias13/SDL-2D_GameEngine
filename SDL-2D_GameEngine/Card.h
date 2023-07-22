@@ -35,17 +35,28 @@ public:
 private:
 	Ranks mRank;
 	Suits mSuit;
+	class SpriteComponent* mCardImage;
+
+	struct SDL_Texture* mFront;
+	SDL_Texture* mBack;
+	bool bisFacingUp = true;
+
 public:
 	class BoxCollsion2DComponent* boxCollsion;
+
+	void flipCard();
 
 private:
 	void Click();
 
 public:
+
+	// Getters
 	const char* RankToString();
 	const char* SuitsToString();
 
 	Ranks GetRank() const { return mRank; }
 	Suits GetSuit() const { return mSuit; }
+	bool IsFacingUp() const { return bisFacingUp; }
 };
 

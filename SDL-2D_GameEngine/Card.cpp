@@ -6,13 +6,13 @@
 
 Card::Card(class Game* game):Actor(game)
 {
-	SpriteComponent* CardImage = new SpriteComponent(this);
+	mCardImage = new SpriteComponent(this);
 
 	//SDL_Texture* box = SDL_CreateTexture(game->GetRenderer(),
 	//	SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 100, 150);
 
-	SDL_Texture* img = game->GetTexture("Assets/PNG-cards/7_of_hearts.png");
-	CardImage->SetTexture(img);
+	mFront = game->GetTexture("Assets/PNG-cards/7_of_hearts.png");
+	mCardImage->SetTexture(mFront);
 
 }
 
@@ -21,7 +21,7 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 	mSuit(suit),
 	mRank(rank)
 {
-	SpriteComponent* CardImage = new SpriteComponent(this, 4);
+	mCardImage = new SpriteComponent(this, 4);
 	boxCollsion = new BoxCollsion2DComponent(this, Vector2(500, 720));
 	boxCollsion->bHiddenInGame = false;
 	boxCollsion->onClicked = std::bind(&Card::Click, this);
@@ -31,12 +31,27 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 	CardGame* cardGame = static_cast<CardGame*>(game);
 
 	if (cardGame) {
-		SDL_Texture* img = game->GetTexture(cardGame->GetCardImagPath(mRank, mSuit));
-		CardImage->SetTexture(img);
+		mFront = game->GetTexture(cardGame->GetCardImagPath(mRank, mSuit));
+		mBack = game->GetTexture("Assets/PNG-cards/Card_back.png");
+		mCardImage->SetTexture(mFront);
 	}
 
 	SetScale(0.2f);
 
+}
+
+void Card::flipCard()
+{
+	if (bisFacingUp) {
+		bisFacingUp = false;
+
+		mCardImage->SetTexture(mBack);
+
+	}
+	else {
+		bisFacingUp = true;
+		mCardImage->SetTexture(mFront);
+	}
 }
 
 void Card::Click()
@@ -45,6 +60,7 @@ void Card::Click()
 	std::string suit = SuitsToString();
 
 	SDL_Log("Clicked card class %s of %s", suit.c_str(), rank.c_str());
+	flipCard();
 
 
 }
