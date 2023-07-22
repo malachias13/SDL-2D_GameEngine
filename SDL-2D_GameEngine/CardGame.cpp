@@ -245,7 +245,7 @@ void CardGame::LoadData()
 	mCursor = new Mouse(this);
 	mPlayer1 = new Player(52, this);
 	FillDeck(mPlayer1->GetDeck());
-	DisplayDeck(mPlayer1->GetDeck(), 100, 100);
+	DisplayDeck(mPlayer1->GetDeck(), 200, 240);
 
 	SDL_ShowCursor(false);
 }
@@ -273,10 +273,24 @@ void CardGame::ProcessInput()
 		case SDL_KEYDOWN:
 
 			if (SDLK_q == event.key.keysym.sym) {
+				int x, y;
+				SDL_GetWindowSize(mWindow, &x, &y);
+				SDL_Log("window size %i , %i", x, y);
 			}
+			break;
+
+		case SDL_WINDOWEVENT_RESIZED:
+
 			break;
 		}
 	}
+}
+
+void CardGame::UpdateGame()
+{
+	Game::UpdateGame();
+
+	DisplayDeck(mPlayer1->GetDeck(), 200, 240);
 }
 
 void CardGame::FillDeck(Deck* deck)
@@ -292,9 +306,13 @@ void CardGame::FillDeck(Deck* deck)
 
 void CardGame::DisplayDeck(Deck* deck, int x, int y)
 {
+
+	int xWin, yWin;
+	SDL_GetWindowSize(mWindow, &xWin, &yWin);
+
 	for (int i = 0; i < deck->GetPlayingCards().size(); ++i) {
-		int xPos = x + ((i % 13) * 120);
-		int yPos = y +((i / 13) * 150);
+		int xPos = x + ((i % 13) * 130); // 120
+		int yPos = y +((i / 13)  * 170); // 150
 		deck->GetPlayingCards()[i]->SetPosition(Vector2((float)xPos, (float)yPos));
 		
 		// Remove this code this is just for testing!

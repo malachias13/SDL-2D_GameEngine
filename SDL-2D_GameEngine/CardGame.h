@@ -22,6 +22,7 @@ protected:
 
 	virtual void LoadData() override;
 	virtual void ProcessInput() override;
+	virtual void UpdateGame() override;
 
 private:
 	void FillDeck(Deck* deck);

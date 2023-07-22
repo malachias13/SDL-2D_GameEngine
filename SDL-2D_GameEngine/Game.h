@@ -28,7 +28,6 @@ protected:
 	bool mIsRunning;
 	Mouse* mCursor;
 
-private:
 	// Window create by SDL
 	SDL_Window* mWindow;
 	// renderer
