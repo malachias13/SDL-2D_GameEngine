@@ -41,6 +41,11 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 
 }
 
+Card::~Card()
+{
+	SDL_Log("Destroyed card!");
+}
+
 void Card::flipCard()
 {
 	if (bisFacingUp) {

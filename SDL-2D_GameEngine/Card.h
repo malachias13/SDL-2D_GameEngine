@@ -31,6 +31,7 @@ class Card : public Actor
 public:
 	Card(class Game* game);
 	Card(Ranks rank, Suits suit , class Game* game);
+	~Card();
 
 private:
 	Ranks mRank;

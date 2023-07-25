@@ -4,6 +4,7 @@
 #include <iostream>
 #include "BoxCollsion2DComponent.h"
 #include "SpriteComponent.h"
+#include <functional>
 
 std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 {
@@ -251,7 +252,7 @@ void CardGame::UpdateCardSelection(Card* selected)
 
 void CardGame::LoadData()
 {
-	
+	Game::LoadData();
 	//card = new Card(Ranks::HEART, Suits::QUEEN, this);
 	//card->SetPosition(Vector2(100, 100));
 	//card->SetScale(0.2f);
@@ -349,7 +350,8 @@ void CardGame::NotifyClicked(Mouse* Cursor)
 void CardGame::CompareSelectedCards()
 {
 	if (mSelectedCards[0]->GetSuit() == mSelectedCards[1]->GetSuit()) {
-		HandleCorrectSelection();
+		mTimeManager->Functions.push_back(std::bind(&CardGame::HandleCorrectSelection, *this));
+		//HandleCorrectSelection();
 	}
 	HandleIncorrectSelection();
 	mSelectedCards.clear();
@@ -357,21 +359,28 @@ void CardGame::CompareSelectedCards()
 
 void CardGame::HandleCorrectSelection()
 {
+	using namespace std::literals::chrono_literals;
+	std::this_thread::sleep_for(3s);
+
 	mPlayer1->AddPoints(1);
 	SDL_Log("Score: %i", mPlayer1->GetPoints());
-	for (int i = 0; i < mSelectedCards.size(); i++) {
-		mPlayer1->GetDeck()->RemoveCard(mSelectedCards[i]);
+	for (int i = 0; i < this->mSelectedCards.size(); i++) {
+		mPlayer1->GetDeck()->RemoveCard(this->mSelectedCards[i]);
 	}
 
-	for (int i = 0; i < mSelectedCards.size(); i++) {
-		RemoveActor(mSelectedCards[i]);
+	for (int i = 0; i < this->mSelectedCards.size(); i++) {
+		delete this->mSelectedCards[i];
+		mSelectedCards[i] = nullptr;
 	}
+
 }
 
 void CardGame::HandleIncorrectSelection()
 {
 	for (int i = 0; i < mSelectedCards.size(); i++) {
-	//	mSelectedCards[i]->flipCard();
+		if (mSelectedCards[i]) {
+		//	mSelectedCards[i]->flipCard();
+		}
 	}
 }
 

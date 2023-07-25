@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <string>
 #include "Mouse.h"
+#include "TimeManager.h"
 
 class Game
 {
@@ -32,6 +33,10 @@ protected:
 	SDL_Window* mWindow;
 	// renderer
 	SDL_Renderer* mRenderer;
+	
+	// Task Manager (TimeManager)
+	TimeManager* mTimeManager;
+	
 
 	int flags = 0;
 
@@ -61,6 +66,7 @@ public:
 	SDL_Renderer* GetRenderer() { return mRenderer; }
 	std::vector<class Actor*> GetAllActors() const { return mActors; }
 	std::vector<class SpriteComponent*> GetAllSpritesComp() const { return mSprites; }
+	TimeManager* GetTimeManager() { return mTimeManager; }
 
 };
 

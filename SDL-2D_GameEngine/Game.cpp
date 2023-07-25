@@ -61,6 +61,14 @@ void Game::RunLoop()
 {
     while (mIsRunning)
     {
+        // All functions that has been added to the function vector in a different thread.
+        if (mTimeManager->Functions.size() >= 1) {
+            for (int i = 0; i < mTimeManager->Functions.size(); i++) {
+                mTimeManager->CreateAndRunThread(mTimeManager->Functions[i]);
+            }
+            // Clear function vector
+            mTimeManager->Functions.clear();
+        }
         ProcessInput();
         UpdateGame();
         GenerateOutput();
@@ -205,6 +213,7 @@ void Game::GenerateOutput()
 
 void Game::LoadData()
 {
+    mTimeManager = new TimeManager();
 }
 
 void Game::UnloadData()
@@ -218,7 +227,8 @@ void Game::UnloadData()
     for (auto i : mTextures) {
         SDL_DestroyTexture(i.second);
     }
-    mTextures.clear();
+    mTextures.clear();  
+    delete mTimeManager;
 }
 
 void Game::AddActor(Actor* actor)
