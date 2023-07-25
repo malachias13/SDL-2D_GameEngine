@@ -235,6 +235,20 @@ std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 	return path;
 }
 
+void CardGame::UpdateCardSelection(Card* selected)
+{
+	mSelectedCards.push_back(selected);
+	if (mSelectedCards.size() >= 2) {
+		CompareSelectedCards();
+		return;
+	}
+	for (int i = 0; i < mSelectedCards.size(); i++) {
+		if (mSelectedCards[i] == selected) {
+			return;
+		}
+	}
+}
+
 void CardGame::LoadData()
 {
 	
@@ -329,6 +343,35 @@ void CardGame::NotifyClicked(Mouse* Cursor)
 		if (Box2DComponent) {
 			Box2DComponent->hasClicked(Cursor);
 		}
+	}
+}
+
+void CardGame::CompareSelectedCards()
+{
+	if (mSelectedCards[0]->GetSuit() == mSelectedCards[1]->GetSuit()) {
+		HandleCorrectSelection();
+	}
+	HandleIncorrectSelection();
+	mSelectedCards.clear();
+}
+
+void CardGame::HandleCorrectSelection()
+{
+	mPlayer1->AddPoints(1);
+	SDL_Log("Score: %i", mPlayer1->GetPoints());
+	for (int i = 0; i < mSelectedCards.size(); i++) {
+		mPlayer1->GetDeck()->RemoveCard(mSelectedCards[i]);
+	}
+
+	for (int i = 0; i < mSelectedCards.size(); i++) {
+		RemoveActor(mSelectedCards[i]);
+	}
+}
+
+void CardGame::HandleIncorrectSelection()
+{
+	for (int i = 0; i < mSelectedCards.size(); i++) {
+	//	mSelectedCards[i]->flipCard();
 	}
 }
 

@@ -37,6 +37,7 @@ Card::Card(Ranks rank, Suits suit, Game* game)
 	}
 
 	SetScale(0.2f);
+	flipCard();
 
 }
 
@@ -61,8 +62,8 @@ void Card::Click()
 
 	SDL_Log("Clicked card class %s of %s", suit.c_str(), rank.c_str());
 	flipCard();
-
-
+	
+	reinterpret_cast<CardGame*>(GetGame())->UpdateCardSelection(this);
 }
 
 const char* Card::RankToString()

@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
+#include <SDL2/SDL_ttf.h>
 
 Game::Game():
     mWindow(nullptr),
@@ -17,6 +18,11 @@ bool Game::Initialize()
     int sdlResult = SDL_Init(SDL_INIT_VIDEO);
     if (sdlResult != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+        return false;
+    }
+
+    if (TTF_Init() == -1) {
+        SDL_Log("Unable to initialize ttf: %s", SDL_GetError());
         return false;
     }
     
@@ -64,9 +70,10 @@ void Game::RunLoop()
 void Game::Shutdown()
 {
     UnloadData();
-    IMG_Quit();
     SDL_DestroyWindow(mWindow);
     SDL_DestroyRenderer(mRenderer);
+    IMG_Quit();
+    TTF_Quit();
     SDL_Quit();
 }
 
