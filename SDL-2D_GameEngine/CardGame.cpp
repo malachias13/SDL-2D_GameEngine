@@ -238,6 +238,11 @@ std::string CardGame::GetCardImagPath(const Ranks rank, const Suits suit)
 
 void CardGame::UpdateCardSelection(Card* selected)
 {
+	
+	for (int i = 0; i < mSelectedCards.size(); i++) {
+		if (mSelectedCards[i] == selected) { return; }
+	}
+
 	mSelectedCards.push_back(selected);
 	if (mSelectedCards.size() >= 2) {
 		CompareSelectedCards();
@@ -353,14 +358,17 @@ void CardGame::CompareSelectedCards()
 		mTimeManager->Functions.push_back(std::bind(&CardGame::HandleCorrectSelection, *this));
 		//HandleCorrectSelection();
 	}
-	HandleIncorrectSelection();
+	else {
+		mTimeManager->Functions.push_back(std::bind(&CardGame::HandleIncorrectSelection, *this));
+		//HandleIncorrectSelection();
+	}
 	mSelectedCards.clear();
 }
 
 void CardGame::HandleCorrectSelection()
 {
 	using namespace std::literals::chrono_literals;
-	std::this_thread::sleep_for(3s);
+	std::this_thread::sleep_for(1s);
 
 	mPlayer1->AddPoints(1);
 	SDL_Log("Score: %i", mPlayer1->GetPoints());
@@ -377,9 +385,12 @@ void CardGame::HandleCorrectSelection()
 
 void CardGame::HandleIncorrectSelection()
 {
+	using namespace std::literals::chrono_literals;
+	std::this_thread::sleep_for(.2s);
+
 	for (int i = 0; i < mSelectedCards.size(); i++) {
 		if (mSelectedCards[i]) {
-		//	mSelectedCards[i]->flipCard();
+			mSelectedCards[i]->flipCard();
 		}
 	}
 }
