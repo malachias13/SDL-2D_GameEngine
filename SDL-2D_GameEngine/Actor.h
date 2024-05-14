@@ -29,6 +29,11 @@ public:
 	Vector2 GetPosition() { return mPosition; }
 	float GetScale() { return mScale; }
 	float GetRotation() { return mRotation; }
+	Vector2 GetForward() const { return Vector2(Math::Cos(mRotation), -Math::Sin(mRotation)); }
+	
+	void SetPosition(const Vector2& pos) { mPosition = pos; }
+	void SetRotation(float rotation) { mRotation = rotation; }
+
 	Game* GetGame() { return mGame; }
 
 	// Add/remove components

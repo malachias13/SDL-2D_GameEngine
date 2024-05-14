@@ -3,6 +3,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include <vector>
+#include <string>
+#include <unordered_map>
 
 class Game
 {
@@ -15,7 +17,10 @@ private:
 	// Helper functions
 	void ProcessInput();
 	void UpdateGame();
-	void GenerateOutput();
+	void GenerateOutput();	
+	SDL_Texture* GetTexture(const std::string& fileName);
+	void BeginPlay();
+	void EndPlay();
 
 	// Window create by SDL
 	SDL_Window* mWindow;
@@ -23,6 +28,9 @@ private:
 	SDL_Renderer* mRenderer;
 	// Game should continue to run
 	bool mIsRunning;
+
+	// Map of textures loaded
+	std::unordered_map<std::string, SDL_Texture*> mTextures;
 
 	int flags = 0;
 

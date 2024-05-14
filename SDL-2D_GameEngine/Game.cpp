@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Actor.h"
 #include "SpriteComponent.h"
+#include "BGSpriteComponent.h"
 
 Game::Game():
     mWindow(nullptr),
@@ -42,6 +43,10 @@ bool Game::Initialize()
         return false;
     }
 
+    BeginPlay();
+
+    mTicksCount = SDL_GetTicks();
+
     return true;
 }
 
@@ -57,10 +62,8 @@ void Game::RunLoop()
 
 void Game::Shutdown()
 {
-    while (!mActors.empty()) {
-        delete mActors.back();
-    }
-
+    EndPlay();
+    IMG_Quit();
 
     SDL_DestroyWindow(mWindow);
     SDL_DestroyRenderer(mRenderer);
@@ -146,6 +149,12 @@ void Game::GenerateOutput()
     // Clearing the back buffer to the current color.
     SDL_RenderClear(mRenderer);
 
+    // Draw all sprite components
+    for (auto sprite : mSprites)
+    {
+        sprite->Draw(mRenderer);
+    }
+
     // Setting the render color to white so things can be seen.
     SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
@@ -155,6 +164,67 @@ void Game::GenerateOutput()
 
     // Swap front buffer and back buffer
     SDL_RenderPresent(mRenderer);
+}
+
+SDL_Texture* Game::GetTexture(const std::string& fileName)
+{
+    SDL_Texture* tex = nullptr;
+    // Is the texture already in the map?
+    auto iter = mTextures.find(fileName);
+    if (iter != mTextures.end())
+    {
+        tex = iter->second;
+    }
+    else
+    {
+        // Load from file
+        SDL_Surface* surf = IMG_Load(fileName.c_str());
+        if (!surf)
+        {
+            SDL_Log("Failed to load texture file %s", fileName.c_str());
+            return nullptr;
+        }
+
+        // Create texture from surface
+        tex = SDL_CreateTextureFromSurface(mRenderer, surf);
+        SDL_FreeSurface(surf);
+        if (!tex)
+        {
+            SDL_Log("Failed to convert surface to texture for %s", fileName.c_str());
+            return nullptr;
+        }
+
+        mTextures.emplace(fileName.c_str(), tex);
+    }
+    return tex;
+}
+
+void Game::BeginPlay()
+{
+    Actor* background = new Actor(this);
+    background->SetPosition(Vector2(1024 / 2, 768 / 2));
+    BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
+    bgSpriteComp->SetScreenSize(Vector2(1024, 768));
+    std::vector<SDL_Texture*> bgtexs = {
+        GetTexture("Assets/1034735.png")
+    };
+    bgSpriteComp->SetBGTextures(bgtexs);
+}
+
+void Game::EndPlay()
+{
+    // Delete actors
+    while (!mActors.empty()) {
+        delete mActors.back();
+    }
+    
+    /* Destroy textures */
+    for (auto i : mTextures)
+    {
+        SDL_DestroyTexture(i.second);
+    }
+    mTextures.clear();
+
 }
 
 void Game::AddActor(Actor* actor)
