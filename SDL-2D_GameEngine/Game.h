@@ -63,6 +63,6 @@ public:
 	SDL_Texture* GetTexture(const std::string& fileName);
 
 	// Getters
-	void GetWindowSize(int* windowsize) { windowsize = mWindowSize; }
+	void GetWindowSize(int* x, int* y) { *x = mWindowSize[0]; *y = mWindowSize[1]; }
 };
 
