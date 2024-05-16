@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Actor.h"
+#include "Random.h"
+#include "Game/Stars.h"
 #include "Components/SpriteComponent.h"
 #include "Components/BGSpriteComponent.h"
 
@@ -42,6 +44,8 @@ bool Game::Initialize()
         SDL_Log("Failed to create renderer: %s", SDL_GetError());
         return false;
     }
+
+    Random::Init();
 
     BeginPlay();
 
@@ -209,6 +213,12 @@ void Game::BeginPlay()
         GetTexture("Assets/1034735.png")
     };
     bgSpriteComp->SetBGTextures(bgtexs);
+
+    const int numStars = 20;
+    for (int i = 0; i < numStars; i++)
+    {
+        new Stars(this);
+    }
 }
 
 void Game::EndPlay()
