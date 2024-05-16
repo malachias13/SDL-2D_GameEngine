@@ -61,5 +61,8 @@ public:
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
 	SDL_Texture* GetTexture(const std::string& fileName);
+
+	// Getters
+	void GetWindowSize(int* windowsize) { windowsize = mWindowSize; }
 };
 
