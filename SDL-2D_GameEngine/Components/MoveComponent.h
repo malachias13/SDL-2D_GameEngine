@@ -13,7 +13,7 @@ private:
 	// Controls forward movement (units/second)
 	float mForwardSpeed;
 
-private:
+public:
 
 	void Update(float deltaTime) override;
 	float GetAngularSpeed() const { return mAngularSpeed; }
