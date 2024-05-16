@@ -20,24 +20,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="AnimSpriteComponent.cpp" />
-    <ClCompile Include="BGSpriteComponent.cpp" />
-    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Components\AnimSpriteComponent.cpp" />
+    <ClCompile Include="Components\BGSpriteComponent.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SpriteComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="AnimSpriteComponent.h" />
-    <ClInclude Include="BGSpriteComponent.h" />
-    <ClInclude Include="Component.h" />
+    <ClInclude Include="Components\AnimSpriteComponent.h" />
+    <ClInclude Include="Components\BGSpriteComponent.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\SpriteComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMath.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="SpriteComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

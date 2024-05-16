@@ -1,7 +1,7 @@
 #include "AnimSpriteComponent.h"
 #include "Component.h"
-#include "GameMath.h"
-#include "Actor.h"
+#include "../GameMath.h"
+#include "../Actor.h"
 
 AnimSpriteComponent::AnimSpriteComponent(Actor* owner, int drawOrder) 
 	:SpriteComponent(owner, drawOrder),

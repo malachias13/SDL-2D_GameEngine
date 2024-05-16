@@ -22,17 +22,23 @@ private:
 	void BeginPlay();
 	void EndPlay();
 
+private:
+
 	// Window create by SDL
 	SDL_Window* mWindow;
 	// renderer
 	SDL_Renderer* mRenderer;
 	// Game should continue to run
 	bool mIsRunning;
+	bool mIsFullscreen = true;
 
 	// Map of textures loaded
 	std::unordered_map<std::string, SDL_Texture*> mTextures;
 
 	int flags = 0;
+
+	// Window size
+	int mWindowSize[2] = { 1920,1080 };
 
 	// for delta time
 	Uint32 mTicksCount;
@@ -44,6 +50,10 @@ private:
 	std::vector<class SpriteComponent*> mSprites;
 	
 	bool mUpdatingActors;
+
+private:
+
+	void FullScreenToggle();
 
 public:
 	void AddActor(Actor* actor);

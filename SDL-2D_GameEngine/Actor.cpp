@@ -1,5 +1,5 @@
 #include "Actor.h"
-#include "Component.h"
+#include "Components/Component.h"
 #include "Game.h"
 #include <algorithm>
 

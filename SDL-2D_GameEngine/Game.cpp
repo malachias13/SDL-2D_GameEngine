@@ -1,9 +1,9 @@
 #include "Game.h"
 #include "Actor.h"
-#include "SpriteComponent.h"
-#include "BGSpriteComponent.h"
+#include "Components/SpriteComponent.h"
+#include "Components/BGSpriteComponent.h"
 
-Game::Game():
+Game::Game() :
     mWindow(nullptr),
     mIsRunning(true)
 {
@@ -29,7 +29,7 @@ bool Game::Initialize()
     // Creating the window
     flags += SDL_WINDOW_FULLSCREEN_DESKTOP;
     mWindow = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        1024, 768, flags);
+        mWindowSize[0], mWindowSize[1], flags);
     if (!mWindow) {
         SDL_Log("Failed to create window: %s", SDL_GetError());
         return false;
@@ -90,7 +90,7 @@ void Game::ProcessInput()
         mIsRunning = false;
     }
     if (state[SDL_SCANCODE_F11]) {
-        flags += SDL_WINDOW_FULLSCREEN;
+        FullScreenToggle();
     }
 }
 
@@ -202,9 +202,9 @@ SDL_Texture* Game::GetTexture(const std::string& fileName)
 void Game::BeginPlay()
 {
     Actor* background = new Actor(this);
-    background->SetPosition(Vector2(1024 / 2, 768 / 2));
+    background->SetPosition(Vector2(mWindowSize[0] / 2, mWindowSize[1] / 2));
     BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
-    bgSpriteComp->SetScreenSize(Vector2(1024, 768));
+    bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
     std::vector<SDL_Texture*> bgtexs = {
         GetTexture("Assets/1034735.png")
     };
@@ -225,6 +225,20 @@ void Game::EndPlay()
     }
     mTextures.clear();
 
+}
+
+void Game::FullScreenToggle()
+{
+    SDL_SetRelativeMouseMode(SDL_TRUE);
+    mIsFullscreen = !mIsFullscreen;
+    if (mIsFullscreen)
+    {
+        SDL_SetWindowFullscreen(mWindow, SDL_WINDOW_FULLSCREEN);
+    }
+    else
+    {
+        SDL_SetWindowFullscreen(mWindow, 0);
+    }
 }
 
 void Game::AddActor(Actor* actor)
