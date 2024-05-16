@@ -3,6 +3,7 @@
 #include "GameMath.h"
 #include <vector>
 
+class Game;
 class Actor
 {
 public:
@@ -15,7 +16,7 @@ public:
 		EDead
 	};
 
-	Actor(class Game* game);
+	Actor(Game* game);
 	virtual ~Actor();
 
 
@@ -50,7 +51,7 @@ private:
 
 	// Components held by actor
 	std::vector<class Component*> mComponents;
-	class Game* mGame;
+	Game* mGame;
 
 	
 };
