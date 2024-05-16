@@ -18,7 +18,6 @@ private:
 	void ProcessInput();
 	void UpdateGame();
 	void GenerateOutput();	
-	SDL_Texture* GetTexture(const std::string& fileName);
 	void BeginPlay();
 	void EndPlay();
 
@@ -61,5 +60,6 @@ public:
 
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
+	SDL_Texture* GetTexture(const std::string& fileName);
 };
 
