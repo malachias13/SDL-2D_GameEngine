@@ -1,7 +1,7 @@
 #pragma once
 #include "SpriteComponent.h"
 #include <vector>
-#include "GameMath.h"
+#include "../GameMath.h"
 
 
 class BGSpriteComponent : public SpriteComponent

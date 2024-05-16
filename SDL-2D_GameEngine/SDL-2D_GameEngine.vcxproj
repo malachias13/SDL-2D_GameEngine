@@ -28,6 +28,7 @@
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Components\MoveComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMath.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Components\MoveComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

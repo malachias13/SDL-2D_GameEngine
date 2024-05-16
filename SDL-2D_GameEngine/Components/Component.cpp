@@ -1,5 +1,5 @@
 #include "Component.h"
-#include "Actor.h"
+#include "../Actor.h"
 
 Component::Component()
 {

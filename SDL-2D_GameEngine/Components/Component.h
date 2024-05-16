@@ -1,9 +1,11 @@
 #pragma once
+
+class Actor;
 class Component
 {
 public:
 	Component();
-	Component(class Actor* owner, int updateOrder = 100);
+	Component(Actor* owner, int updateOrder = 100);
 
 	virtual ~Component();
 	virtual void Update(float deltaTime);
@@ -11,7 +13,7 @@ public:
 
 protected:
 	// Owning actor
-	class Actor* mOwner;
+	Actor* mOwner;
 	
 	int mUpdateOrder;
 
