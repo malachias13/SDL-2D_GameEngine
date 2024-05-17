@@ -227,7 +227,7 @@ void Game::BeginPlay()
     ship->SetPosition(Vector2(512.0f, 384.0f));
     ship->SetRotation(Math::PiOver2);
 
-    const int numStars = 20;
+    const int numStars = 1;
     for (int i = 0; i < numStars; i++)
     {
         new Stars(this);

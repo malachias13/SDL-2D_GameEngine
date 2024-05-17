@@ -8,6 +8,7 @@
 
 Stars::Stars(Game* game)
 	:Actor(game)
+	,mCircle(nullptr)
 {
 	// Initialize to random position.
 	Vector2 randPos = Random::GetVector(Vector2::Zero, Vector2(1024.0f, 768.0f));

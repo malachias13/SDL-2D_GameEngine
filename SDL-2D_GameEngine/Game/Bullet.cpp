@@ -33,7 +33,7 @@ void Bullet::UpdateActor(float deltaTime)
 	{
 		for (auto s : GetGame()->GetStars())
 		{
-			if (Intersect(*s->GetCircle(), *mCircle))
+			if (Intersect(*mCircle, *(s->GetCircle())))
 			{
 				SetState(EDead);
 				s->SetState(EDead);

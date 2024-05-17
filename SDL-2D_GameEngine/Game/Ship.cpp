@@ -2,8 +2,10 @@
 #include "../Components/SpriteComponent.h"
 #include "../Components/InputComponent.h"
 #include "../Game.h"
+#include "Bullet.h"
 
-Ship::Ship(Game* game): Actor(game)
+Ship::Ship(Game* game): Actor(game),
+	mBulletCooldown(0.5f)
 {
 	SpriteComponent* sc= new SpriteComponent(this, 150);
 	sc->SetTexture(game->GetTexture("Assets/Ship.png"));
@@ -23,5 +25,17 @@ Ship::Ship(Game* game): Actor(game)
 
 void Ship::UpdateActor(float deltaTime)
 {
+	mBulletCooldown -= deltaTime;
+}
 
+void Ship::ActorInput(const uint8_t* keyState)
+{
+	if (keyState[SDL_SCANCODE_SPACE] && mBulletCooldown <= 0.0f)
+	{
+		Bullet* bullet = new Bullet(GetGame());
+		bullet->SetPosition(GetPosition());
+		bullet->SetRotation(GetRotation());
+
+		mBulletCooldown = 0.5f;
+	}
 }
