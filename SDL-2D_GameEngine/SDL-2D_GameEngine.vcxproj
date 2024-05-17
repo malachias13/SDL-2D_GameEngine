@@ -23,6 +23,7 @@
     <ClCompile Include="Components\AnimSpriteComponent.cpp" />
     <ClCompile Include="Components\BGSpriteComponent.cpp" />
     <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Components\InputComponent.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMath.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="Components\AnimSpriteComponent.h" />
     <ClInclude Include="Components\BGSpriteComponent.h" />
     <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\InputComponent.h" />
     <ClInclude Include="Components\SpriteComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMath.h" />
