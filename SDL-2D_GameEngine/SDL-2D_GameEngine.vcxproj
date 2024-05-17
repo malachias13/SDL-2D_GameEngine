@@ -23,12 +23,11 @@
     <ClCompile Include="Components\AnimSpriteComponent.cpp" />
     <ClCompile Include="Components\BGSpriteComponent.cpp" />
     <ClCompile Include="Components\Component.cpp" />
-    <ClCompile Include="Components\InputComponent.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Game\Stars.cpp" />
+    <ClCompile Include="Components\InputComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Components\MoveComponent.cpp" />
     <ClCompile Include="Random.cpp" />
@@ -38,13 +37,12 @@
     <ClInclude Include="Components\AnimSpriteComponent.h" />
     <ClInclude Include="Components\BGSpriteComponent.h" />
     <ClInclude Include="Components\Component.h" />
-    <ClInclude Include="Components\InputComponent.h" />
     <ClInclude Include="Components\SpriteComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMath.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Components\MoveComponent.h" />
-    <ClInclude Include="Game\Stars.h" />
+    <ClInclude Include="Components\InputComponent.h" />
     <ClInclude Include="Random.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
