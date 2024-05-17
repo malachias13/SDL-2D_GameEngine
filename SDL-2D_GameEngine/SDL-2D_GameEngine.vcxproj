@@ -22,6 +22,7 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Components\AnimSpriteComponent.cpp" />
     <ClCompile Include="Components\BGSpriteComponent.cpp" />
+    <ClCompile Include="Components\CircleComponent.cpp" />
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Components\AnimSpriteComponent.h" />
     <ClInclude Include="Components\BGSpriteComponent.h" />
+    <ClInclude Include="Components\CircleComponent.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\SpriteComponent.h" />
     <ClInclude Include="Game.h" />
