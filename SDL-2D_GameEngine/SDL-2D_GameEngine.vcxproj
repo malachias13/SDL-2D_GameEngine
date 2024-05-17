@@ -28,6 +28,7 @@
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Components\InputComponent.cpp" />
+    <ClCompile Include="Game\Stars.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Components\MoveComponent.cpp" />
     <ClCompile Include="Random.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Components\MoveComponent.h" />
     <ClInclude Include="Components\InputComponent.h" />
+    <ClInclude Include="Game\Stars.h" />
     <ClInclude Include="Random.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
