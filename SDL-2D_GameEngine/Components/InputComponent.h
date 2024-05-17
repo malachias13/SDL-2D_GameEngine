@@ -6,7 +6,7 @@ class InputComponent : public MoveComponent
 {
 public:
 	InputComponent(class Actor* owner);
-	void ProcessInput(const uint8_t* keyState) override;
+	void ProcessInput(const uint8_t* keyState, float deltaTime) override;
 
 	/* Getters and setters */
 	float GetMaxForward() const { return mMaxForwardSpeed; }

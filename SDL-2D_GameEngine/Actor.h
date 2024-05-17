@@ -37,9 +37,9 @@ public:
 
 	Game* GetGame() { return mGame; }
 	
-	void ProcessInput(const uint8_t* keyState);
+	void ProcessInput(const uint8_t* keyState, float deltaTime);
 	// Any actor-specific input code (overridable)
-	virtual void ActorInput(const uint8_t* keyState);
+	virtual void ActorInput(const uint8_t* keyState, float deltaTime);
 
 	// Add/remove components
 	void AddComponent(class Component* component);

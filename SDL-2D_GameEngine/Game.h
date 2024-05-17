@@ -41,6 +41,7 @@ private:
 
 	// for delta time
 	Uint32 mTicksCount;
+	float mDeltaTime;
 
 private:
 	std::vector<class Actor*> mActors;
