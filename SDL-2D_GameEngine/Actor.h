@@ -35,6 +35,7 @@ public:
 	void SetPosition(const Vector2& pos) { mPosition = pos; }
 	void SetRotation(float rotation) { mRotation = rotation; }
 	void SetScale(float scale) { mScale = scale; }
+	void SetState(State _state) { mState = _state; }
 
 	Game* GetGame() { return mGame; }
 	
