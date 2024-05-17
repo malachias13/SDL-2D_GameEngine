@@ -9,7 +9,7 @@ InputComponent::InputComponent(Actor* owner)
 {
 }
 
-void InputComponent::ProcessInput(const uint8_t* keyState , float deltaTime)
+void InputComponent::ProcessInput(const uint8_t* keyState)
 {
 	// Calculate forward speed for moveComponent
 	float forwardSpeed = 0.0f;

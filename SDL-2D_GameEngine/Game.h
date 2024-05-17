@@ -65,5 +65,6 @@ public:
 
 	// Getters
 	void GetWindowSize(int* x, int* y) { *x = mWindowSize[0]; *y = mWindowSize[1]; }
+	float DeltaTime() const {return mDeltaTime; }
 };
 
