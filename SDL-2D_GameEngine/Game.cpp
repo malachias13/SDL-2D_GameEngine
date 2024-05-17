@@ -119,6 +119,7 @@ void Game::UpdateGame()
     {
         mDeltaTime = 0.05f;
     }
+    mTicksCount = SDL_GetTicks();
 
     // Updating all actors
     mUpdatingActors = true;
