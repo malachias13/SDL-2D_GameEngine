@@ -303,3 +303,17 @@ void Game::RemoveSprite(SpriteComponent* sprite)
     auto iter = std::find(mSprites.begin(), mSprites.end(), sprite);
     mSprites.erase(iter);
 }
+
+void Game::AddStar(Stars* star)
+{
+    mStars.emplace_back(star);
+}
+
+void Game::RemoveStar(Stars* star)
+{
+    auto iter = std::find(mStars.begin(), mStars.end(), star);
+    if (iter != mStars.end())
+    {
+        mStars.erase(iter);
+    }
+}

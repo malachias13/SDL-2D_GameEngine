@@ -3,6 +3,7 @@
 #include "../Random.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/MoveComponent.h"
+#include "../Components/CircleComponent.h"
 #include "../Game.h"
 
 Stars::Stars(Game* game)
@@ -19,5 +20,16 @@ Stars::Stars(Game* game)
 
 	// Create a move component, and set a forward speed;
 	MoveComponent* mc = new MoveComponent(this);
-	mc->SetForwardSpeed(30.0f);
+	mc->SetForwardSpeed(150.0f);
+
+	mCircle = new CircleComponent(this);
+	mCircle->SetRadius(40.0f);
+
+	game->AddStar(this);
+
+}
+
+Stars::~Stars()
+{
+	GetGame()->RemoveStar(this);
 }

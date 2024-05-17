@@ -48,6 +48,7 @@ private:
 	std::vector<class Actor*> mPendingActors;
 	// All the sprite components drawn
 	std::vector<class SpriteComponent*> mSprites;
+	std::vector<class Stars*> mStars;
 	
 	bool mUpdatingActors;
 
@@ -61,6 +62,10 @@ public:
 
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
+
+	void AddStar(class Stars* star);
+	void RemoveStar(class Stars* star);
+
 	SDL_Texture* GetTexture(const std::string& fileName);
 
 	// Getters
