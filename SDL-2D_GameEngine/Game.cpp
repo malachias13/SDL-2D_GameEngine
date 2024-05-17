@@ -101,7 +101,7 @@ void Game::ProcessInput()
     mUpdatingActors = true;
     for (auto actor : mActors)
     {
-        actor->ProcessInput(state, mDeltaTime);
+        actor->ProcessInput(state);
     }
     mUpdatingActors = false;
 }
