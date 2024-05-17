@@ -96,7 +96,7 @@ void Game::ProcessInput()
     mUpdatingActors = true;
     for (auto actor : mActors)
     {
-        actor->ProcessInput(state);
+        actor->ProcessInput(state, mDeltaTime);
     }
     mUpdatingActors = false;
 }
@@ -108,18 +108,18 @@ void Game::UpdateGame()
 
     /* Delta time is the difference in ticks from last frame
      (converted to seconds) */
-    float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
+    mDeltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
     // clamp maximum delta time value
-    if (deltaTime > 0.05f)
+    if (mDeltaTime > 0.05f)
     {
-        deltaTime = 0.05f;
+        mDeltaTime = 0.05f;
     }
 
     // Updating all actors
     mUpdatingActors = true;
 
     for (auto actor : mActors) {
-        actor->Update(deltaTime);
+        actor->Update(mDeltaTime);
     }
     mUpdatingActors = false;
 
