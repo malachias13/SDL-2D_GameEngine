@@ -96,6 +96,13 @@ void Game::ProcessInput()
     if (state[SDL_SCANCODE_F11]) {
         FullScreenToggle();
     }
+
+    mUpdatingActors = true;
+    for (auto actor : mActors)
+    {
+        actor->ProcessInput(state);
+    }
+    mUpdatingActors = false;
 }
 
 void Game::UpdateGame()

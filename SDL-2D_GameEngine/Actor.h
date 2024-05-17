@@ -36,6 +36,10 @@ public:
 	void SetRotation(float rotation) { mRotation = rotation; }
 
 	Game* GetGame() { return mGame; }
+	
+	void ProcessInput(const uint8_t* keyState);
+	// Any actor-specific input code (overridable)
+	virtual void ActorInput(const uint8_t* keyState);
 
 	// Add/remove components
 	void AddComponent(class Component* component);
