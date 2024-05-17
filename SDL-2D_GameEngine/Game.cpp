@@ -219,7 +219,7 @@ void Game::BeginPlay()
     BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
     bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
     std::vector<SDL_Texture*> bgtexs = {
-        GetTexture("Assets/1034735.png")
+        GetTexture("Assets/Space-Background.jpg")
     };
     bgSpriteComp->SetBGTextures(bgtexs);
 
@@ -227,7 +227,7 @@ void Game::BeginPlay()
     ship->SetPosition(Vector2(512.0f, 384.0f));
     ship->SetRotation(Math::PiOver2);
 
-    const int numStars = 1;
+    const int numStars = 20;
     for (int i = 0; i < numStars; i++)
     {
         new Stars(this);
