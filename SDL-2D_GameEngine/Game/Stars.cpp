@@ -19,5 +19,5 @@ Stars::Stars(Game* game)
 
 	// Create a move component, and set a forward speed;
 	MoveComponent* mc = new MoveComponent(this);
-	mc->SetForwardSpeed(150.0f);
+	mc->SetForwardSpeed(30.0f);
 }
