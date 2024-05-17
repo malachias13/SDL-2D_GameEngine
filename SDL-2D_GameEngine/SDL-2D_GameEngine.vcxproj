@@ -32,6 +32,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Components\MoveComponent.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Game\Ship.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Components\InputComponent.h" />
     <ClInclude Include="Game\Stars.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="Game\Ship.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

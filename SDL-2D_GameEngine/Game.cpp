@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Actor.h"
 #include "Random.h"
+#include "Game/Ship.h"
 #include "Game/Stars.h"
 #include "Components/SpriteComponent.h"
 #include "Components/BGSpriteComponent.h"
@@ -220,6 +221,10 @@ void Game::BeginPlay()
         GetTexture("Assets/1034735.png")
     };
     bgSpriteComp->SetBGTextures(bgtexs);
+
+    Ship* ship = new Ship(this);
+    ship->SetPosition(Vector2(512.0f, 384.0f));
+    ship->SetRotation(Math::PiOver2);
 
     const int numStars = 20;
     for (int i = 0; i < numStars; i++)
