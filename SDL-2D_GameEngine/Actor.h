@@ -26,10 +26,10 @@ public:
 	virtual void UpdateActor(float deltaTime);
 
 	// Getters/Setters
-	State GetState() { return mState; }
-	Vector2 GetPosition() { return mPosition; }
-	float GetScale() { return mScale; }
-	float GetRotation() { return mRotation; }
+	const State GetState() const { return mState; }
+	const Vector2& GetPosition() const { return mPosition; }
+	float GetScale() const { return mScale; }
+	float GetRotation() const { return mRotation; }
 	Vector2 GetForward() const { return Vector2(Math::Cos(mRotation), -Math::Sin(mRotation)); }
 	
 	void SetPosition(const Vector2& pos) { mPosition = pos; }
