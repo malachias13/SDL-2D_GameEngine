@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "Game.h"
 #include "Actor.h"
 #include "Components/SpriteComponent.h"
@@ -26,8 +27,23 @@ bool Game::Initialize()
         // handle error
     }
 
+    // Use the core OpenGL profile
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    // Request a color buffer with 8-bits per RGBA channel
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+    // Enable double buffering
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    // Force OpenGL to use hardware acceleration
+    SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+
     // Creating the window
     flags += SDL_WINDOW_FULLSCREEN_DESKTOP;
+    flags += SDL_WINDOW_OPENGL;
     mWindow = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         mWindowSize[0], mWindowSize[1], flags);
     if (!mWindow) {
@@ -35,6 +51,16 @@ bool Game::Initialize()
         return false;
     }
 
+    mContext = SDL_GL_CreateContext(mWindow);
+
+    // Initialize GLEW
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK)
+    {
+        SDL_Log("Failed to initialize GLEW.");
+        return false;
+    }
+    
     // Renderer
     mRenderer = SDL_CreateRenderer(mWindow, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -65,6 +91,7 @@ void Game::Shutdown()
     EndPlay();
     IMG_Quit();
 
+    SDL_GL_DeleteContext(mContext);
     SDL_DestroyWindow(mWindow);
     SDL_DestroyRenderer(mRenderer);
     SDL_Quit();
@@ -150,12 +177,8 @@ void Game::UpdateGame()
 void Game::GenerateOutput()
 {
     // Clearing the back buffer to a color
-    SDL_SetRenderDrawColor(
-        mRenderer,
-        54, 69, 79, 255
-    );
-    // Clearing the back buffer to the current color.
-    SDL_RenderClear(mRenderer);
+    glClearColor(0.86f, 0.86f, 0.86f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     // Draw all sprite components
     for (auto sprite : mSprites)
@@ -163,15 +186,8 @@ void Game::GenerateOutput()
         sprite->Draw(mRenderer);
     }
 
-    // Setting the render color to white so things can be seen.
-    SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
-
-
-
-
-
     // Swap front buffer and back buffer
-    SDL_RenderPresent(mRenderer);
+    SDL_GL_SwapWindow(mWindow);
 }
 
 SDL_Texture* Game::GetTexture(const std::string& fileName)

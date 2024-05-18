@@ -27,6 +27,9 @@ private:
 	SDL_Window* mWindow;
 	// renderer
 	SDL_Renderer* mRenderer;
+
+	SDL_GLContext mContext;
+
 	// Game should continue to run
 	bool mIsRunning;
 	bool mIsFullscreen = true;
