@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include "Game.h"
 #include "Actor.h"
+#include "Renderer/VertexArray.h"
 #include "Components/SpriteComponent.h"
 #include "Components/BGSpriteComponent.h"
 
@@ -188,6 +189,23 @@ void Game::GenerateOutput()
 
     // Swap front buffer and back buffer
     SDL_GL_SwapWindow(mWindow);
+}
+
+void Game::CreateSpriteVerts()
+{
+    float vertices[] = {
+    -0.5f,  0.5f, 0.f, 0.f, 0.f, // top left
+     0.5f,  0.5f, 0.f, 1.f, 0.f, // top right
+     0.5f, -0.5f, 0.f, 1.f, 1.f, // bottom right
+    -0.5f, -0.5f, 0.f, 0.f, 1.f  // bottom left
+    };
+
+    unsigned int indices[] = {
+        0, 1, 2,
+        2, 3, 0
+    };
+
+    mSpriteVerts = new VertexArray(vertices, 4, indices, 6);
 }
 
 SDL_Texture* Game::GetTexture(const std::string& fileName)

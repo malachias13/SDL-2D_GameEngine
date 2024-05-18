@@ -18,6 +18,7 @@ private:
 	void ProcessInput();
 	void UpdateGame();
 	void GenerateOutput();	
+	void CreateSpriteVerts();
 	void BeginPlay();
 	void EndPlay();
 
@@ -51,6 +52,7 @@ private:
 	std::vector<class Actor*> mPendingActors;
 	// All the sprite components drawn
 	std::vector<class SpriteComponent*> mSprites;
+	class VertexArray* mSpriteVerts;
 	
 	bool mUpdatingActors;
 
