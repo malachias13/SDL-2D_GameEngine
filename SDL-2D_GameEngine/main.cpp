@@ -1,10 +1,10 @@
 #include "SDL2/SDL.h"
 #undef main
 #include <iostream>
-#include "Game.h"
+#include "Game/AsteroidGame.h"
 
 int main() {
-	Game game;
+	AsteroidGame game;
 	bool success = game.Initialize();
 	if (success) {
 		game.RunLoop();

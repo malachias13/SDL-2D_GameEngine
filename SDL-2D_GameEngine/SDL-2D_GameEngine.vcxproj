@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Game\AsteroidGame.cpp" />
     <ClCompile Include="Game\Bullet.cpp" />
     <ClCompile Include="Components\AnimSpriteComponent.cpp" />
     <ClCompile Include="Components\BGSpriteComponent.cpp" />
@@ -30,14 +31,17 @@
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Components\InputComponent.cpp" />
-    <ClCompile Include="Game\Stars.cpp" />
+    <ClCompile Include="Game\Star.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Components\MoveComponent.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Game\Ship.cpp" />
+    <ClCompile Include="Renderer\Shader.cpp" />
+    <ClCompile Include="Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Game\AsteroidGame.h" />
     <ClInclude Include="Game\Bullet.h" />
     <ClInclude Include="Components\AnimSpriteComponent.h" />
     <ClInclude Include="Components\BGSpriteComponent.h" />
@@ -49,9 +53,16 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Components\MoveComponent.h" />
     <ClInclude Include="Components\InputComponent.h" />
-    <ClInclude Include="Game\Stars.h" />
+    <ClInclude Include="Game\Star.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Game\Ship.h" />
+    <ClInclude Include="Renderer\Shader.h" />
+    <ClInclude Include="Renderer\VertexArray.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\Basic.frag" />
+    <None Include="Shaders\Basic.vert" />
+    <None Include="Shaders\Transform.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

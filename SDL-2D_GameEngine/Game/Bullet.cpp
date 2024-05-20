@@ -3,7 +3,8 @@
 #include "../Components/MoveComponent.h"
 #include "../Components/CircleComponent.h"
 #include "../Game.h"
-#include "Stars.h"
+#include "AsteroidGame.h"
+#include "Star.h"
 
 
 Bullet::Bullet(Game* game) : Actor(game)
@@ -31,7 +32,7 @@ void Bullet::UpdateActor(float deltaTime)
 	}
 	else
 	{
-		for (auto s : GetGame()->GetStars())
+		for (auto s : static_cast<AsteroidGame*>(GetGame())->GetStars())
 		{
 			if (Intersect(*mCircle, *(s->GetCircle())))
 			{
