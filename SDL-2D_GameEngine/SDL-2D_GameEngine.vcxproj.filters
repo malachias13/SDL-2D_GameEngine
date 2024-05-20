@@ -63,6 +63,9 @@
     <ClCompile Include="Renderer\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -107,10 +110,15 @@
     <ClInclude Include="Renderer\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Basic.vert" />
     <None Include="Shaders\Basic.frag" />
     <None Include="Shaders\Transform.vert" />
+    <None Include="Shaders\Sprite.frag" />
+    <None Include="Shaders\Sprite.vert" />
   </ItemGroup>
 </Project>

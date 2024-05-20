@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "Renderer/VertexArray.h"
 #include "Renderer/Shader.h"
+#include "Renderer/Texture.h"
 #include "Components/SpriteComponent.h"
 #include "Components/BGSpriteComponent.h"
 
@@ -203,12 +204,11 @@ void Game::GenerateOutput()
 void Game::CreateSpriteVerts()
 {
     float vertices[] = {
-    -0.5f,  0.5f, 0.f, 0.f, 0.f, // top left
-     0.5f,  0.5f, 0.f, 1.f, 0.f, // top right
-     0.5f, -0.5f, 0.f, 1.f, 1.f, // bottom right
-    -0.5f, -0.5f, 0.f, 0.f, 1.f  // bottom left
+       -0.5f,  0.5f, 0.f, 0.f, 0.f, // top left
+        0.5f,  0.5f, 0.f, 1.f, 0.f, // top right
+        0.5f, -0.5f, 0.f, 1.f, 1.f, // bottom right
+       -0.5f, -0.5f, 0.f, 0.f, 1.f  // bottom left
     };
-
     unsigned int indices[] = {
         0, 1, 2,
         2, 3, 0
@@ -220,7 +220,7 @@ void Game::CreateSpriteVerts()
 bool Game::LoadShaders()
 {
     mSpriteShader = new Shader();
-    if (!mSpriteShader->Load("Shaders/Transform.vert", "Shaders/Basic.frag"))
+    if (!mSpriteShader->Load("Shaders/Sprite.vert", "Shaders/Sprite.frag"))
     {
         return false;
     }
@@ -231,54 +231,44 @@ bool Game::LoadShaders()
     return true;
 }
 
-SDL_Texture* Game::GetTexture(const std::string& fileName)
+Texture* Game::GetTexture(const std::string& fileName)
 {
-    //SDL_Texture* tex = nullptr;
-    //// Is the texture already in the map?
-    //auto iter = mTextures.find(fileName);
-    //if (iter != mTextures.end())
-    //{
-    //    tex = iter->second;
-    //}
-    //else
-    //{
-    //    // Load from file
-    //    SDL_Surface* surf = IMG_Load(fileName.c_str());
-    //    if (!surf)
-    //    {
-    //        SDL_Log("Failed to load texture file %s", fileName.c_str());
-    //        return nullptr;
-    //    }
-
-    //    // Create texture from surface
-    //    tex = SDL_CreateTextureFromSurface(mRenderer, surf);
-    //    SDL_FreeSurface(surf);
-    //    if (!tex)
-    //    {
-    //        SDL_Log("Failed to convert surface to texture for %s", fileName.c_str());
-    //        return nullptr;
-    //    }
-
-    //    mTextures.emplace(fileName.c_str(), tex);
-    //}
-    //return tex;
-    return nullptr;
+    Texture* tex = nullptr;
+    auto iter = mTextures.find(fileName);
+    if (iter != mTextures.end())
+    {
+        tex = iter->second;
+    }
+    else
+    {
+        tex = new Texture();
+        if (tex->Load(fileName))
+        {
+            mTextures.emplace(fileName, tex);
+        }
+        else
+        {
+            delete tex;
+            tex = nullptr;
+        }
+    }
+    return tex;
 }
 
 void Game::BeginPlay()
 {
-    //Actor* background = new Actor(this);
-    //background->SetPosition(Vector2(mWindowSize[0] / 2, mWindowSize[1] / 2));
-    //BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
-    //bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
-    //std::vector<SDL_Texture*> bgtexs = {
-    //    GetTexture("Assets/1034735.png")
-    //};
-    //bgSpriteComp->SetBGTextures(bgtexs);
+    Actor* background = new Actor(this);
+    BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
+    bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
+    std::vector<Texture*> bgtexs = {
+        GetTexture("Assets/1034735.png")
+    };
+    bgSpriteComp->SetBGTextures(bgtexs);
 
     Actor* object = new Actor(this);
-    object->SetScale(10);
+    object->SetScale(0.5);
     SpriteComponent* sc = new SpriteComponent(object);
+    sc->SetTexture(GetTexture("Assets/1034735.png"));
 }
 
 void Game::EndPlay()
@@ -291,7 +281,8 @@ void Game::EndPlay()
     /* Destroy textures */
     for (auto i : mTextures)
     {
-        SDL_DestroyTexture(i.second);
+        i.second->Unload();
+        delete i.second;
     }
     mTextures.clear();
 
