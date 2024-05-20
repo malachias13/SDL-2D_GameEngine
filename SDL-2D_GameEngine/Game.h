@@ -39,7 +39,7 @@ protected:
 	std::unordered_map<std::string, Texture*> mTextures;
 
 	// Window size
-	int mWindowSize[2] = { 1920,1080 };
+	int mWindowSize[2] = { 1080,720 };
 
 	Uint32 mTicksCount;
 	float mDeltaTime;

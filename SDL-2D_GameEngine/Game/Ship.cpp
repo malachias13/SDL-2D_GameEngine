@@ -9,7 +9,7 @@ Ship::Ship(Game* game): Actor(game),
 {
 	SpriteComponent* sc= new SpriteComponent(this, 150);
 	sc->SetTexture(game->GetTexture("Assets/Ship.png"));
-	SetScale(3);
+	SetScale(1.3);
 
 	InputComponent* inputComp = new InputComponent(this);
 
@@ -19,7 +19,7 @@ Ship::Ship(Game* game): Actor(game),
 	inputComp->SetCounterClockwiseKey(SDL_SCANCODE_D);
 
 	inputComp->SetMaxForwardSpeed(300.0f);
-	inputComp->SetMaxAngularSpeed(Math::TwoPi * 2);
+	inputComp->SetMaxAngularSpeed(Math::TwoPi);
 }
 
 void Ship::UpdateActor(float deltaTime)
