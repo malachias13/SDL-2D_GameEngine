@@ -13,18 +13,18 @@ public:
 	bool Initialize();
 	void RunLoop();
 	void Shutdown();
-private:
+
+protected:
 	// Helper functions
-	void ProcessInput();
-	void UpdateGame();
-	void GenerateOutput();	
-	void CreateSpriteVerts();
-	bool LoadShaders();
-	void BeginPlay();
-	void EndPlay();
+	virtual void ProcessInput();
+	virtual void UpdateGame();
+	virtual void GenerateOutput();
+	virtual void CreateSpriteVerts();
+	virtual bool LoadShaders();
+	virtual void BeginPlay();
+	virtual void EndPlay();
 
-private:
-
+protected:
 	// Window create by SDL
 	SDL_Window* mWindow;
 	SDL_GLContext mContext;
@@ -36,16 +36,14 @@ private:
 	// Map of textures loaded
 	std::unordered_map<std::string, SDL_Texture*> mTextures;
 
-	int flags = 0;
-
 	// Window size
 	int mWindowSize[2] = { 1080,720 };
 
-	// for delta time
 	Uint32 mTicksCount;
 	float mDeltaTime;
+	int flags = 0;
 
-private:
+protected:
 	std::vector<class Actor*> mActors;
 	std::vector<class Actor*> mPendingActors;
 	// All the sprite components drawn
