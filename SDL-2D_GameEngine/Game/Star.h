@@ -2,11 +2,11 @@
 #include "../Actor.h"
 
 class CircleComponent;
-class Stars : public Actor
+class Star : public Actor
 {
 public:
-	Stars(class Game* game);
-	~Stars();
+	Star(class Game* game);
+	~Star();
 
 	CircleComponent* GetCircle() { return mCircle; }
 

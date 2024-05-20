@@ -1,12 +1,13 @@
-#include "Stars.h"
+#include "Star.h"
 #include "../GameMath.h"
 #include "../Random.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/MoveComponent.h"
 #include "../Components/CircleComponent.h"
 #include "../Game.h"
+#include "AsteroidGame.h"
 
-Stars::Stars(Game* game)
+Star::Star(Game* game)
 	:Actor(game)
 	,mCircle(nullptr)
 {
@@ -26,11 +27,11 @@ Stars::Stars(Game* game)
 	mCircle = new CircleComponent(this);
 	mCircle->SetRadius(40.0f);
 
-	game->AddStar(this);
+	static_cast<AsteroidGame*>(game)->AddStar(this);
 
 }
 
-Stars::~Stars()
+Star::~Star()
 {
-	GetGame()->RemoveStar(this);
+	static_cast<AsteroidGame*>(GetGame())->RemoveStar(this);
 }
