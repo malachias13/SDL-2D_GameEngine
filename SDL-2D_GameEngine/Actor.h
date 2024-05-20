@@ -32,7 +32,7 @@ public:
 	const Vector2& GetPosition() const { return mPosition; }
 	float GetScale() const { return mScale; }
 	float GetRotation() const { return mRotation; }
-	Vector2 GetForward() const { return Vector2(Math::Cos(mRotation), -Math::Sin(mRotation)); }
+	Vector2 GetForward() const { return Vector2(Math::Cos(mRotation), Math::Sin(mRotation)); }
 	const Matrix4& GetWorldTransform() const { return mWorldTransform; }
 	
 	void SetPosition(const Vector2& pos) { mPosition = pos; mRecomputeWorldTransform = true; }
