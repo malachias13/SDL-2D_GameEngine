@@ -1,4 +1,5 @@
 #include "SpriteComponent.h"
+#include "GL/glew.h"
 #include "../Actor.h"
 #include "../Game.h"
 
@@ -17,6 +18,7 @@ SpriteComponent::~SpriteComponent()
 	mOwner->GetGame()->RemoveSprite(this);
 }
 
+// deprecated sprite comp code.
 void SpriteComponent::Draw(SDL_Renderer* renderer)
 {
 	if (mTexture) {
@@ -32,6 +34,11 @@ void SpriteComponent::Draw(SDL_Renderer* renderer)
 		SDL_RenderCopyEx(renderer, mTexture, nullptr, &r,
 			-Math::ToDegrees(mOwner->GetRotation()), nullptr, SDL_FLIP_NONE);
 	}
+}
+
+void SpriteComponent::Draw(Shader* shader)
+{
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
 void SpriteComponent::SetTexture(SDL_Texture* texture)
