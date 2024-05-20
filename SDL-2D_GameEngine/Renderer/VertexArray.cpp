@@ -12,7 +12,7 @@ VertexArray::VertexArray(const float* verts, unsigned int numVerts, const unsign
 	// create Vertex buffer.
 	glGenBuffers(1, &mVertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, numVerts * 3 * sizeof(float), verts, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, numVerts * 5 * sizeof(float), verts, GL_STATIC_DRAW);
 
 	// create index buffer
 	glGenBuffers(1, &mIndexBuffer);

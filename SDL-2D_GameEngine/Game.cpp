@@ -93,6 +93,9 @@ void Game::Shutdown()
 {
     EndPlay();
     IMG_Quit();
+    delete mSpriteVerts;
+    mSpriteShader->Unload();
+    delete mSpriteShader;
 
     SDL_GL_DeleteContext(mContext);
     SDL_DestroyWindow(mWindow);
@@ -155,6 +158,7 @@ void Game::UpdateGame()
 
     // Move pending actors to mActors
     for (auto pending : mPendingActors) {
+        pending->ComputeWorldTransform();
         mActors.emplace_back(pending);
     }
     mPendingActors.clear();
@@ -216,11 +220,15 @@ void Game::CreateSpriteVerts()
 bool Game::LoadShaders()
 {
     mSpriteShader = new Shader();
-    if (!mSpriteShader->Load("Shaders/Basic.vert", "Shaders/Basic.frag"))
+    if (!mSpriteShader->Load("Shaders/Transform.vert", "Shaders/Basic.frag"))
     {
         return false;
     }
     mSpriteShader->SetActive();
+    Matrix4 viewProj = Matrix4::CreateSimpleViewProj(mWindowSize[0], mWindowSize[1]);
+    mSpriteShader->SetMatrixUniform("uViewProj", viewProj);
+    
+    return true;
 }
 
 SDL_Texture* Game::GetTexture(const std::string& fileName)
@@ -269,7 +277,7 @@ void Game::BeginPlay()
     //bgSpriteComp->SetBGTextures(bgtexs);
 
     Actor* object = new Actor(this);
-    object->SetPosition(Vector2(mWindowSize[0] / 2, mWindowSize[1] / 2));
+    object->SetScale(10);
     SpriteComponent* sc = new SpriteComponent(object);
 }
 

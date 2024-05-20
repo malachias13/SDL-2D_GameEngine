@@ -2,6 +2,7 @@
 #include "GL/glew.h"
 #include "../Actor.h"
 #include "../Game.h"
+#include "../Renderer/Shader.h"
 
 SpriteComponent::SpriteComponent(Actor* owner, int drawOrder)
 	:Component(owner),
@@ -38,6 +39,13 @@ void SpriteComponent::Draw(SDL_Renderer* renderer)
 
 void SpriteComponent::Draw(Shader* shader)
 {
+	// Scale the quad by the width/height of texture
+	Matrix4 scaleMat = Matrix4::CreateScale(static_cast<float>(24), static_cast<float>(24), 1.0f);
+	Matrix4 world = scaleMat * mOwner->GetWorldTransform();
+
+	// Set world transform
+	shader->SetMatrixUniform("uWorldTransform", world);
+
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 

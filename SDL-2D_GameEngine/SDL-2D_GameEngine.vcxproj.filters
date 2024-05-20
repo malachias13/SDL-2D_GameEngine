@@ -111,5 +111,6 @@
   <ItemGroup>
     <None Include="Shaders\Basic.vert" />
     <None Include="Shaders\Basic.frag" />
+    <None Include="Shaders\Transform.vert" />
   </ItemGroup>
 </Project>

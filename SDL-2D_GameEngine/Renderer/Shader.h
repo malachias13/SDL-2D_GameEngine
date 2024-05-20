@@ -2,6 +2,8 @@
 
 #include <string>
 #include "GL/glew.h"
+#include "../GameMath.h"
+
 class Shader
 {
 public:
@@ -13,6 +15,8 @@ public:
 	void Unload();
 	// Set this as the active shader program
 	void SetActive();
+	void SetMatrixUniform(const char* name, const Matrix4& matrix);
+
 private:
 	// Compile the shader
 	bool CompileShader(const std::string& filename, GLenum shaderType,
