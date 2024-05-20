@@ -9,7 +9,6 @@ Ship::Ship(Game* game): Actor(game),
 {
 	SpriteComponent* sc= new SpriteComponent(this, 150);
 	sc->SetTexture(game->GetTexture("Assets/Ship.png"));
-	
 	SetScale(3);
 
 	InputComponent* inputComp = new InputComponent(this);

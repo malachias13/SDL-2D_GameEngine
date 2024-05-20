@@ -10,13 +10,13 @@ void AsteroidGame::BeginPlay()
 {
 	Random::Init();
 
-    //Actor* background = new Actor(this);
-    //BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
-    //bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
-    //std::vector<SDL_Texture*> bgtexs = {
-    //    GetTexture("Assets/Space-Background.jpg")
-    //};
-    //bgSpriteComp->SetBGTextures(bgtexs);
+    Actor* background = new Actor(this);
+    BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
+    bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
+    std::vector<Texture*> bgtexs = {
+        GetTexture("Assets/Space-Background.jpg")
+    };
+    bgSpriteComp->SetBGTextures(bgtexs);
 
     Ship* ship = new Ship(this);
     ship->SetRotation(Math::PiOver2);
