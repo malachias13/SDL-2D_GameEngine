@@ -19,6 +19,7 @@ private:
 	void UpdateGame();
 	void GenerateOutput();	
 	void CreateSpriteVerts();
+	bool LoadShaders();
 	void BeginPlay();
 	void EndPlay();
 
@@ -26,9 +27,6 @@ private:
 
 	// Window create by SDL
 	SDL_Window* mWindow;
-	// renderer
-	SDL_Renderer* mRenderer;
-
 	SDL_GLContext mContext;
 
 	// Game should continue to run
@@ -41,7 +39,7 @@ private:
 	int flags = 0;
 
 	// Window size
-	int mWindowSize[2] = { 1920,1080 };
+	int mWindowSize[2] = { 1080,720 };
 
 	// for delta time
 	Uint32 mTicksCount;
@@ -53,6 +51,7 @@ private:
 	// All the sprite components drawn
 	std::vector<class SpriteComponent*> mSprites;
 	class VertexArray* mSpriteVerts;
+	class Shader* mSpriteShader;
 	
 	bool mUpdatingActors;
 

@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Actor.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Shader.h"
 #include "Components/SpriteComponent.h"
 #include "Components/BGSpriteComponent.h"
 
@@ -14,7 +15,7 @@ Game::Game() :
 bool Game::Initialize()
 {
     flags = IMG_INIT_JPG | IMG_INIT_PNG;
-    int sdlResult = SDL_Init(SDL_INIT_VIDEO);
+    int sdlResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     if (sdlResult != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
         return false;
@@ -43,10 +44,10 @@ bool Game::Initialize()
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
     // Creating the window
-    flags += SDL_WINDOW_FULLSCREEN_DESKTOP;
-    flags += SDL_WINDOW_OPENGL;
+   // flags += SDL_WINDOW_FULLSCREEN_DESKTOP;
+   // flags += SDL_WINDOW_OPENGL;
     mWindow = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        mWindowSize[0], mWindowSize[1], flags);
+        mWindowSize[0], mWindowSize[1], SDL_WINDOW_OPENGL);
     if (!mWindow) {
         SDL_Log("Failed to create window: %s", SDL_GetError());
         return false;
@@ -60,15 +61,16 @@ bool Game::Initialize()
     {
         SDL_Log("Failed to initialize GLEW.");
         return false;
-    }
-    
-    // Renderer
-    mRenderer = SDL_CreateRenderer(mWindow, -1,
-        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (!mRenderer) {
-        SDL_Log("Failed to create renderer: %s", SDL_GetError());
+    }   
+    glGetError();
+
+    if (!LoadShaders())
+    {
+        SDL_Log("Failed to load shaders.");
         return false;
     }
+
+    CreateSpriteVerts();
 
     BeginPlay();
 
@@ -94,7 +96,6 @@ void Game::Shutdown()
 
     SDL_GL_DeleteContext(mContext);
     SDL_DestroyWindow(mWindow);
-    SDL_DestroyRenderer(mRenderer);
     SDL_Quit();
 }
 
@@ -181,10 +182,14 @@ void Game::GenerateOutput()
     glClearColor(0.86f, 0.86f, 0.86f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
+    // Set sprite shader and vertex array objects active
+    mSpriteShader->SetActive();
+    mSpriteVerts->SetActive();
+
     // Draw all sprite components
     for (auto sprite : mSprites)
     {
-        sprite->Draw(mRenderer);
+        sprite->Draw(mSpriteShader);
     }
 
     // Swap front buffer and back buffer
@@ -208,49 +213,64 @@ void Game::CreateSpriteVerts()
     mSpriteVerts = new VertexArray(vertices, 4, indices, 6);
 }
 
+bool Game::LoadShaders()
+{
+    mSpriteShader = new Shader();
+    if (!mSpriteShader->Load("Shaders/Basic.vert", "Shaders/Basic.frag"))
+    {
+        return false;
+    }
+    mSpriteShader->SetActive();
+}
+
 SDL_Texture* Game::GetTexture(const std::string& fileName)
 {
-    SDL_Texture* tex = nullptr;
-    // Is the texture already in the map?
-    auto iter = mTextures.find(fileName);
-    if (iter != mTextures.end())
-    {
-        tex = iter->second;
-    }
-    else
-    {
-        // Load from file
-        SDL_Surface* surf = IMG_Load(fileName.c_str());
-        if (!surf)
-        {
-            SDL_Log("Failed to load texture file %s", fileName.c_str());
-            return nullptr;
-        }
+    //SDL_Texture* tex = nullptr;
+    //// Is the texture already in the map?
+    //auto iter = mTextures.find(fileName);
+    //if (iter != mTextures.end())
+    //{
+    //    tex = iter->second;
+    //}
+    //else
+    //{
+    //    // Load from file
+    //    SDL_Surface* surf = IMG_Load(fileName.c_str());
+    //    if (!surf)
+    //    {
+    //        SDL_Log("Failed to load texture file %s", fileName.c_str());
+    //        return nullptr;
+    //    }
 
-        // Create texture from surface
-        tex = SDL_CreateTextureFromSurface(mRenderer, surf);
-        SDL_FreeSurface(surf);
-        if (!tex)
-        {
-            SDL_Log("Failed to convert surface to texture for %s", fileName.c_str());
-            return nullptr;
-        }
+    //    // Create texture from surface
+    //    tex = SDL_CreateTextureFromSurface(mRenderer, surf);
+    //    SDL_FreeSurface(surf);
+    //    if (!tex)
+    //    {
+    //        SDL_Log("Failed to convert surface to texture for %s", fileName.c_str());
+    //        return nullptr;
+    //    }
 
-        mTextures.emplace(fileName.c_str(), tex);
-    }
-    return tex;
+    //    mTextures.emplace(fileName.c_str(), tex);
+    //}
+    //return tex;
+    return nullptr;
 }
 
 void Game::BeginPlay()
 {
-    Actor* background = new Actor(this);
-    background->SetPosition(Vector2(mWindowSize[0] / 2, mWindowSize[1] / 2));
-    BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
-    bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
-    std::vector<SDL_Texture*> bgtexs = {
-        GetTexture("Assets/1034735.png")
-    };
-    bgSpriteComp->SetBGTextures(bgtexs);
+    //Actor* background = new Actor(this);
+    //background->SetPosition(Vector2(mWindowSize[0] / 2, mWindowSize[1] / 2));
+    //BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
+    //bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
+    //std::vector<SDL_Texture*> bgtexs = {
+    //    GetTexture("Assets/1034735.png")
+    //};
+    //bgSpriteComp->SetBGTextures(bgtexs);
+
+    Actor* object = new Actor(this);
+    object->SetPosition(Vector2(mWindowSize[0] / 2, mWindowSize[1] / 2));
+    SpriteComponent* sc = new SpriteComponent(object);
 }
 
 void Game::EndPlay()
