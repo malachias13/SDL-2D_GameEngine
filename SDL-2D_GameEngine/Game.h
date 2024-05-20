@@ -18,6 +18,8 @@ private:
 	void ProcessInput();
 	void UpdateGame();
 	void GenerateOutput();	
+	void CreateSpriteVerts();
+	bool LoadShaders();
 	void BeginPlay();
 	void EndPlay();
 
@@ -25,8 +27,8 @@ private:
 
 	// Window create by SDL
 	SDL_Window* mWindow;
-	// renderer
-	SDL_Renderer* mRenderer;
+	SDL_GLContext mContext;
+
 	// Game should continue to run
 	bool mIsRunning;
 	bool mIsFullscreen = true;
@@ -37,7 +39,7 @@ private:
 	int flags = 0;
 
 	// Window size
-	int mWindowSize[2] = { 1920,1080 };
+	int mWindowSize[2] = { 1080,720 };
 
 	// for delta time
 	Uint32 mTicksCount;
@@ -48,7 +50,8 @@ private:
 	std::vector<class Actor*> mPendingActors;
 	// All the sprite components drawn
 	std::vector<class SpriteComponent*> mSprites;
-	std::vector<class Stars*> mStars;
+	class VertexArray* mSpriteVerts;
+	class Shader* mSpriteShader;
 	
 	bool mUpdatingActors;
 
@@ -62,15 +65,10 @@ public:
 
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
-
-	void AddStar(class Stars* star);
-	void RemoveStar(class Stars* star);
-
 	SDL_Texture* GetTexture(const std::string& fileName);
 
 	// Getters
 	void GetWindowSize(int* x, int* y) { *x = mWindowSize[0]; *y = mWindowSize[1]; }
 	float DeltaTime() const {return mDeltaTime; }
-	std::vector<Stars*>& GetStars() { return mStars; }
 };
 

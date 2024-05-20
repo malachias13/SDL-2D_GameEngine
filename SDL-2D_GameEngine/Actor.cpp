@@ -8,7 +8,8 @@ Actor::Actor(Game* game):
 	mPosition(Vector2::Zero),
 	mScale(1.0f),
 	mRotation(0.0f),
-	mGame(game)
+	mGame(game),
+	mRecomputeWorldTransform(true)
 {
 	mGame->AddActor(this);
 }
@@ -26,8 +27,11 @@ void Actor::Update(float deltaTime)
 {
 	if (mState == EActive)
 	{
+		ComputeWorldTransform();
 		UpdateComponents(deltaTime);
 		UpdateActor(deltaTime);
+
+		ComputeWorldTransform();
 	}
 }
 
@@ -35,6 +39,23 @@ void Actor::UpdateComponents(float deltaTime)
 {
 	for (auto comp : mComponents) {
 		comp->Update(deltaTime);
+	}
+}
+
+void Actor::ComputeWorldTransform()
+{
+	if (mRecomputeWorldTransform)
+	{
+		mRecomputeWorldTransform = false;
+		// Scale, then rotate, then translate
+		mWorldTransform = Matrix4::CreateScale(mScale);
+		mWorldTransform *= Matrix4::CreateRotationZ(mRotation);
+		mWorldTransform *= Matrix4::CreateTranslation(Vector3(mPosition.x, mPosition.y, 0.0f));
+
+		for (auto comp : mComponents)
+		{
+			comp->OnUpdateWorldTransform();
+		}
 	}
 }
 

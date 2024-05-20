@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "Component.h"
 
+class Shader;
 
 class SpriteComponent : public Component
 {
@@ -13,6 +14,7 @@ public:
 	~SpriteComponent();
 
 	virtual void Draw(SDL_Renderer* renderer);
+	virtual void Draw(Shader* shader);
 	virtual void SetTexture(SDL_Texture* texture);
 
 	int GetDrawOrder() const { return mDrawOrder; }
