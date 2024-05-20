@@ -25,15 +25,16 @@ void MoveComponent::Update(float deltaTime)
 
 		int maxX, maxY;
 		mOwner->GetGame()->GetWindowSize(&maxX, &maxY);
-		// (Screen wrapping code only for stars)
-		if (pos.x < 0.0f) { pos.x = maxX; }
-		else if (pos.x > maxX) { pos.x = 2.0f; }
+		maxX /= 2;
+		maxY /= 2;
 
-		if (pos.y < 0.0f) { pos.y = maxY; }
-		else if (pos.y > maxY) { pos.y = 2.0f; }
+		// (Screen wrapping code only for stars)
+		if (pos.x < -maxX) { pos.x = maxX - 2; }
+		else if (pos.x > maxX) { pos.x = -maxX; }
+
+		if (pos.y < -maxY) { pos.y = maxY - 2; }
+		else if (pos.y > maxY) { pos.y = -maxY; }
 
 		mOwner->SetPosition(pos);
-
-
 	}
 }
