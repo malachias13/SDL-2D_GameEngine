@@ -187,6 +187,10 @@ void Game::GenerateOutput()
     glClearColor(0.86f, 0.86f, 0.86f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
+    // Enable alpha blending on the color buffer
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     // Set sprite shader and vertex array objects active
     mSpriteShader->SetActive();
     mSpriteVerts->SetActive();
