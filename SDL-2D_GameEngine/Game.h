@@ -6,6 +6,8 @@
 #include <string>
 #include <unordered_map>
 
+class Texture;
+
 class Game
 {
 public:
@@ -34,7 +36,7 @@ protected:
 	bool mIsFullscreen = true;
 
 	// Map of textures loaded
-	std::unordered_map<std::string, SDL_Texture*> mTextures;
+	std::unordered_map<std::string, Texture*> mTextures;
 
 	// Window size
 	int mWindowSize[2] = { 1920,1080 };
@@ -63,7 +65,7 @@ public:
 
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
-	SDL_Texture* GetTexture(const std::string& fileName);
+	Texture* GetTexture(const std::string& fileName);
 
 	// Getters
 	void GetWindowSize(int* x, int* y) { *x = mWindowSize[0]; *y = mWindowSize[1]; }

@@ -9,10 +9,10 @@ class BGSpriteComponent : public SpriteComponent
 public:
 	BGSpriteComponent(class Actor* owner, int drawOrder = 10);
 	void Update(float deltaTime) override;
-	void Draw(SDL_Renderer* renderer) override;
+	void Draw(Shader* shader) override;
 
 	/* Set the texture used for the background */
-	void SetBGTextures(const std::vector<SDL_Texture*>& textures);
+	void SetBGTextures(const std::vector<Texture*>& textures);
 	/* Get/Set screen size and scroll speed */
 	void SetScreenSize(const Vector2& size) { mScreenSize = size; }
 	void SetScrollSpeed(float speed) { mScrollSpeed = speed; }
@@ -21,7 +21,7 @@ private:
 	// Struct to encapsulate each bg image and its offset
 	struct BGTexture
 	{
-		SDL_Texture* mTexture;
+		Texture* mTexture;
 		Vector2 mOffset;
 	};
 	std::vector<BGTexture> mBGTextures;
