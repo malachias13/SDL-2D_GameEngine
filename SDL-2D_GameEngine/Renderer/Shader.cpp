@@ -58,6 +58,11 @@ void Shader::SetMatrixUniform(const char* name, const Matrix4& matrix)
 	glUniformMatrix4fv(loc, 1, GL_TRUE, matrix.GetAsFloatPtr());
 }
 
+void Shader::setFloat(const char* name, float value) const
+{
+	glUniform1f(glGetUniformLocation(mShaderProgram, name), value);
+}
+
 bool Shader::CompileShader(const std::string& filename, GLenum shaderType, GLuint& outShader)
 {
 	// Open file

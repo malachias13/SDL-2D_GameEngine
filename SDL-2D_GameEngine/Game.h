@@ -51,7 +51,9 @@ protected:
 	// All the sprite components drawn
 	std::vector<class SpriteComponent*> mSprites;
 	class VertexArray* mSpriteVerts;
+	VertexArray* mBackgroundVerts;
 	class Shader* mSpriteShader;
+	Shader* mBackgroundShader;
 	
 	bool mUpdatingActors;
 

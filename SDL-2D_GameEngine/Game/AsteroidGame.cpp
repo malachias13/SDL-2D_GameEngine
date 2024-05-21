@@ -11,6 +11,7 @@ void AsteroidGame::BeginPlay()
 	Random::Init();
 
     Actor* background = new Actor(this);
+    background->SetScale(1);
     BGSpriteComponent* bgSpriteComp = new BGSpriteComponent(background);
     bgSpriteComp->SetScreenSize(Vector2(mWindowSize[0], mWindowSize[1]));
     std::vector<Texture*> bgtexs = {

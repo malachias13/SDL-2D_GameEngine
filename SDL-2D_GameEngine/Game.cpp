@@ -95,7 +95,10 @@ void Game::Shutdown()
     EndPlay();
     IMG_Quit();
     delete mSpriteVerts;
+    delete mBackgroundVerts;
     mSpriteShader->Unload();
+    mBackgroundShader->Unload();
+    delete mBackgroundShader;
     delete mSpriteShader;
 
     SDL_GL_DeleteContext(mContext);
@@ -193,12 +196,30 @@ void Game::GenerateOutput()
 
     // Set sprite shader and vertex array objects active
     mSpriteShader->SetActive();
-    mSpriteVerts->SetActive();
+    mSpriteVerts->SetActive();  
+
 
     // Draw all sprite components
     for (auto sprite : mSprites)
     {
-        sprite->Draw(mSpriteShader);
+        BGSpriteComponent* bg = dynamic_cast<BGSpriteComponent*>(sprite);
+        if (bg)
+        {
+
+            mBackgroundShader->SetActive();
+            mBackgroundVerts->SetActive();
+            float time = SDL_GetTicks() * 0.2f;
+            mBackgroundShader->setFloat("deltaTime", time);
+            sprite->Draw(mSpriteShader);
+
+        }
+        else
+        {
+            mSpriteShader->SetActive();
+            mSpriteVerts->SetActive();
+            sprite->Draw(mSpriteShader);
+        }
+
     }
 
     // Swap front buffer and back buffer
@@ -219,6 +240,7 @@ void Game::CreateSpriteVerts()
     };
 
     mSpriteVerts = new VertexArray(vertices, 4, indices, 6);
+    mBackgroundVerts = new VertexArray(vertices, 4, indices, 6);
 }
 
 bool Game::LoadShaders()
@@ -231,6 +253,14 @@ bool Game::LoadShaders()
     mSpriteShader->SetActive();
     Matrix4 viewProj = Matrix4::CreateSimpleViewProj(mWindowSize[0], mWindowSize[1]);
     mSpriteShader->SetMatrixUniform("uViewProj", viewProj);
+
+    mBackgroundShader = new Shader();
+    if (!mBackgroundShader->Load("Shaders/Background.vert", "Shaders/Basic.frag"))
+    {
+        return false;
+    }
+      mBackgroundShader->SetActive();
+      mBackgroundShader->SetMatrixUniform("uViewProj", viewProj);
     
     return true;
 }

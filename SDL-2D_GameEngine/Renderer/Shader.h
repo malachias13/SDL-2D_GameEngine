@@ -16,6 +16,7 @@ public:
 	// Set this as the active shader program
 	void SetActive();
 	void SetMatrixUniform(const char* name, const Matrix4& matrix);
+	void setFloat(const char* name, float value) const;
 
 private:
 	// Compile the shader

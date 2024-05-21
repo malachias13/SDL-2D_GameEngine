@@ -62,6 +62,7 @@
     <ClInclude Include="Renderer\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Background.vert" />
     <None Include="Shaders\Basic.frag" />
     <None Include="Shaders\Basic.vert" />
     <None Include="Shaders\Sprite.frag" />
